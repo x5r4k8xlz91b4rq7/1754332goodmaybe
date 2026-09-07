@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --navy: #0a1630; --ink: #111827; --muted: #667085; --violet: #5b2df5; --violet-dark: #4320d6; --line: #e7eaf0; --pale: #f6f8fb; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #fff; color: var(--ink); font-family: var(--font-inter), Arial, sans-serif; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.font-display { font-family: var(--font-display), Georgia, serif; }
+.container-wide { width: min(1380px, calc(100% - 64px)); margin: 0 auto; }
+.section-space { padding: 44px 0; }
+.soft-grid { background-image: linear-gradient(#eef1f6 1px, transparent 1px), linear-gradient(90deg, #eef1f6 1px, transparent 1px); background-size: 34px 34px; }
+.premium-shadow { box-shadow: 0 18px 40px rgba(28, 38, 70, .08); }
+.hero-mascot { position: relative; min-height: 430px; overflow: hidden; border-radius: 24px; background: radial-gradient(circle at 50% 48%, #d8e5ff 0 14%, transparent 32%), linear-gradient(135deg, #eaf5ff, #f8fbff 45%, #dae5ff); }
+.hero-mascot:before, .hero-mascot:after { content: ''; position: absolute; width: 75%; height: 17%; left: 12%; border-radius: 50%; border: 8px solid #2d76e8; opacity: .55; transform: rotate(-14deg); }
+.hero-mascot:before { bottom: 11%; border-color: #e02b37; transform: rotate(12deg); }
+.hero-mascot:after { bottom: 18%; }
+.mascot-body { position: absolute; width: 160px; height: 220px; left: 45%; bottom: 55px; transform: rotate(17deg); background: linear-gradient(160deg, #101a33 20%, #0a0e1b 70%); border-radius: 42% 48% 30% 35%; box-shadow: inset -20px -5px 0 #1265cf; z-index: 2; }
+.mascot-head { position: absolute; width: 112px; height: 105px; left: 48%; bottom: 235px; transform: rotate(12deg); background: #0a1326; border-radius: 46% 46% 42% 42%; z-index: 4; border: 8px solid #166fd8; }
+.mascot-head:before { content: '⌄'; position: absolute; top: -26px; right: 9px; color: white; background: #166fd8; font-size: 28px; width: 38px; height: 32px; text-align: center; border-radius: 14px 14px 4px 4px; }
+.mascot-eye { position: absolute; top: 30px; width: 30px; height: 42px; background: white; border-radius: 60% 20%; box-shadow: 0 0 10px #7db8ff; }
+.mascot-eye.left { left: 22px; transform: rotate(-25deg); }.mascot-eye.right { right: 22px; transform: rotate(25deg); }
+.mascot-shoe { position: absolute; width: 120px; height: 46px; border-radius: 70% 35% 35% 20%; background: linear-gradient(#3d9bf4 0 45%, #10182b 46%); border-bottom: 9px solid #fff; z-index: 5; }
+.mascot-shoe.one { left: 40%; bottom: 43px; transform: rotate(13deg); }.mascot-shoe.two { left: 55%; bottom: 70px; transform: rotate(-17deg); }
+.hero-copy { position: relative; z-index: 2; }
+.category-card { transition: transform .2s ease, box-shadow .2s ease; }.category-card:hover { transform: translateY(-5px); box-shadow: 0 14px 30px rgba(18, 30, 60, .1); }
+.product-card { transition: transform .2s ease, box-shadow .2s ease; }.product-card:hover { transform: translateY(-4px); box-shadow: 0 16px 28px rgba(25, 34, 67, .1); }.product-card img { transition: transform .25s ease; }.product-card:hover img { transform: scale(1.05); }
+.product-image { background: #f5f6f8; }
+.drawer { animation: slide-in .25s ease-out; }
+@keyframes slide-in { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@media (max-width: 900px) { .container-wide { width: min(100% - 32px, 720px); }.desktop-only { display: none !important; }.hero-mascot { min-height: 340px; }.mascot-body { left: 56%; }.mascot-head { left: 60%; } }
+@media (max-width: 600px) { .container-wide { width: calc(100% - 24px); }.section-space { padding: 30px 0; }.hero-mascot { min-height: 280px; }.mascot-body { transform: scale(.78) rotate(17deg); left: 47%; bottom: 15px; }.mascot-head { transform: scale(.78) rotate(12deg); left: 48%; bottom: 173px; }.mascot-shoe { transform: scale(.72) rotate(13deg); left: 35%; bottom: 20px; }.mascot-shoe.two { transform: scale(.72) rotate(-17deg); left: 51%; bottom: 38px; } }
+@layer base { * { @apply border-border; } }
