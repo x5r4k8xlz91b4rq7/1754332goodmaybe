@@ -78,14 +78,14 @@ export default function Hero() {
             </p>
             <div className="hero-enter hero-enter-4 flex flex-wrap gap-3 mt-7">
               <Link
-                href="/"
+                href="/drops"
                 className="btn-luxe inline-flex items-center gap-2 h-12 px-7 rounded-xl text-white text-sm font-semibold"
               >
                 <span className="btn-shine" />
                 Shop the Drops <ArrowRight className="w-4 h-4 btn-arrow" />
               </Link>
               <Link
-                href="/"
+                href="/categories"
                 className="inline-flex items-center gap-2 h-12 px-7 rounded-xl border border-[#e7eaf0] text-navy text-sm font-semibold hover:bg-[#f6f8fb] transition-colors"
               >
                 Explore All Categories

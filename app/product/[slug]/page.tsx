@@ -13,14 +13,13 @@ import PriceHistory from '@/components/luxe/PriceHistory';
 import KeyHighlights from '@/components/luxe/KeyHighlights';
 import CompleteTheLook from '@/components/luxe/CompleteTheLook';
 import ProductGrid from '@/components/luxe/ProductGrid';
-import { getProduct, products } from '@/lib/products';
+import { getProduct, getSimilarProducts } from '@/lib/products';
 
 export default function ProductPage({ params }: { params: { slug: string } }) {
   const product = getProduct(params.slug);
   if (!product) notFound();
 
-  const similar = products.filter((p) => p.slug !== product.slug && p.category === product.category).slice(0, 6);
-  const similarProducts = similar.length > 0 ? similar : products.filter((p) => p.slug !== product.slug).slice(0, 6);
+  const similarProducts = getSimilarProducts(params.slug);
 
   return (
     <CartProvider>

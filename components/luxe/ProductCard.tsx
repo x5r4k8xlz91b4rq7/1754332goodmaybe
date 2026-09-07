@@ -5,7 +5,7 @@ import { Heart, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Product, formatPrice } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
-import PlaceholderImage from './PlaceholderImage';
+import ProductImage from './ProductImage';
 
 export default function ProductCard({ product }: { product: Product }) {
   const { toggleFavorite, isFavorite, addItem } = useCart();
@@ -66,7 +66,14 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Image */}
         <div className="product-image aspect-square overflow-hidden">
-          <PlaceholderImage variant={product.image} brand={product.brand} name={product.name} className="w-full h-full" />
+          <ProductImage
+            image={product.image}
+            alt={product.name}
+            brand={product.brand}
+            name={product.name}
+            variant={product.gallery[0] ?? 'trading-card-box'}
+            className="w-full h-full"
+          />
         </div>
 
         {/* Info */}

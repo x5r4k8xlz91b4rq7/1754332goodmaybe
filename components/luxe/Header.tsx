@@ -6,7 +6,7 @@ import { Search, Heart, ShoppingBag, Crown, Menu, X, User, ArrowRight } from 'lu
 import { useCart } from '@/lib/cart-context';
 import { allNavLinks } from '@/lib/categories';
 import { searchProducts, formatPrice } from '@/lib/products';
-import PlaceholderImage from './PlaceholderImage';
+import ProductImage from './ProductImage';
 
 export default function Header() {
   const { count, openCart, favorites } = useCart();
@@ -97,7 +97,7 @@ export default function Header() {
                     className="flex items-center gap-3 p-3 hover:bg-[#f6f8fb] transition-colors border-b border-[#eef1f6] last:border-0"
                   >
                     <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
-                      <PlaceholderImage variant={product.image} className="w-full h-full" />
+                      <ProductImage image={product.image} alt={product.name} brand={product.brand} name={product.name} variant={product.gallery[0] ?? 'trading-card-box'} className="w-full h-full" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-navy truncate">{product.name}</p>

@@ -5,20 +5,21 @@ import Header from '@/components/luxe/Header';
 import Footer from '@/components/luxe/Footer';
 import CartDrawer from '@/components/luxe/CartDrawer';
 import CategoryPage from '@/components/luxe/CategoryPage';
-import { getProductsByCategory } from '@/lib/products';
+import { getDropsProducts } from '@/lib/products';
 
-export default function WatchesPage() {
-  const products = getProductsByCategory('Watches');
+export default function DropsPage() {
+  const products = getDropsProducts();
+
   return (
     <CartProvider>
       <Header />
       <main className="section-space">
         <CategoryPage
-          title="Watches"
-          description="Limited collaboration watches and accessible collector timepieces."
-          heroLabel="Curated Drop"
+          title="Drops"
+          description="The strongest combination of featured, new arrival and high-scarcity pieces. These are the most anticipated releases on DealVault Luxe."
+          heroLabel="Featured Drops"
           products={products}
-          breadcrumb={['Home', 'Watches']}
+          breadcrumb={['Home', 'Drops']}
         />
       </main>
       <Footer />

@@ -5,7 +5,7 @@ import { X, ShoppingBag, Plus, Minus, Trash2, Check } from 'lucide-react';
 import Link from 'next/link';
 import { useCart } from '@/lib/cart-context';
 import { formatPrice } from '@/lib/products';
-import PlaceholderImage from './PlaceholderImage';
+import ProductImage from './ProductImage';
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, subtotal, count } = useCart();
@@ -71,7 +71,7 @@ export default function CartDrawer() {
                   {items.map((item) => (
                     <div key={`${item.slug}-${item.size}`} className="drawer-item flex gap-4 pb-4 border-b border-[#eef1f6] last:border-0">
                       <div className="w-20 h-20 rounded-lg overflow-hidden shrink-0">
-                        <PlaceholderImage variant={item.image} className="w-full h-full" />
+                        <ProductImage image={item.image} alt={item.name} variant="trading-card-box" className="w-full h-full" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-navy truncate">{item.name}</p>

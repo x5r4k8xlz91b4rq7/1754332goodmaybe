@@ -161,6 +161,13 @@ button { cursor: pointer; }
 .gallery-spotlight { position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
 .gallery-main:hover .gallery-spotlight { opacity: 1; }
 
+/* ===== CAROUSEL SCROLL ===== */
+.carousel-scroll { scrollbar-width: thin; scrollbar-color: #c7cad3 transparent; }
+.carousel-scroll::-webkit-scrollbar { height: 6px; }
+.carousel-scroll::-webkit-scrollbar-track { background: transparent; }
+.carousel-scroll::-webkit-scrollbar-thumb { background: #c7cad3; border-radius: 3px; }
+.carousel-scroll::-webkit-scrollbar-thumb:hover { background: #5b2df5; }
+
 /* ===== PAGE FADE ===== */
 .page-fade { animation: page-fade-in 0.25s ease-out; }
 @keyframes page-fade-in { from { opacity: 0; } to { opacity: 1; } }

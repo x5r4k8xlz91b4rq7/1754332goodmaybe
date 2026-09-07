@@ -21,9 +21,11 @@ export default function CompleteTheLook() {
     status: 'Coming Soon',
     featured: false,
     newArrival: false,
-    sale: true,
-    image: 'sneaker',
+    highScarcity: false,
+    trending: false,
+    image: null,
     gallery: ['sneaker'],
+    tags: ['accessory', 'shoe protector', 'care'],
     options: [{ label: 'Purchase', values: ['1 Bottle'] }],
   };
 

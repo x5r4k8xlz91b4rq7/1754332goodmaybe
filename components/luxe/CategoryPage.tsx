@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
-import { ChevronRight, SlidersHorizontal, LayoutGrid, LayoutList, ArrowRight } from 'lucide-react';
+import { ChevronRight, SlidersHorizontal, LayoutGrid, LayoutList } from 'lucide-react';
 import { Product } from '@/lib/products';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import ProductCard from './ProductCard';
@@ -10,33 +10,111 @@ import PlaceholderImage from './PlaceholderImage';
 
 type SortOption = 'featured' | 'price-low' | 'price-high' | 'newest';
 
+type FilterConfig = {
+  label: string;
+  options: string[];
+};
+
+function getFilterConfig(categorySlug?: string): FilterConfig[] {
+  switch (categorySlug) {
+    case 'trading-cards':
+      return [
+        { label: 'Brand', options: ['Pokémon', 'One Piece Card Game', 'Panini'] },
+        { label: 'Product Type', options: ['Elite Trainer Box', 'Booster Bundle', 'Booster Box', 'Hobby Box'] },
+        { label: 'Status', options: ['Coming Soon', 'Available'] },
+      ];
+    case 'sneakers':
+      return [
+        { label: 'Brand', options: ['Jordan', 'adidas', 'Vans', 'Nike'] },
+        { label: 'Size', options: ['7', '8', '9', '10', '11', '12'] },
+        { label: 'Status', options: ['Coming Soon', 'Available'] },
+      ];
+    case 'apparel':
+    case 'soccer':
+      return [
+        { label: 'Brand', options: ['Supreme', 'Supreme x MM6 Maison Margiela', 'Jordan x Nigel Sylvester', 'Nike', 'Kith x adidas Messi', 'Cactus Jack x FC Barcelona', 'adidas'] },
+        { label: 'Size', options: ['S', 'M', 'L', 'XL', 'XXL'] },
+        { label: 'Status', options: ['Coming Soon', 'Available'] },
+      ];
+    case 'collectibles':
+      return [
+        { label: 'Brand', options: ['Pop Mart', 'Pop Mart x Disney', 'Jellycat'] },
+        { label: 'Collection', options: ['Hacipupu', 'Labubu', 'Crybaby', 'Skullpanda', 'Pop Mart x Disney', 'Jellycat'] },
+        { label: 'Status', options: ['Coming Soon', 'Available'] },
+      ];
+    case 'watches':
+      return [
+        { label: 'Brand', options: ['Swatch', 'Timex x MM6 Maison Margiela', 'Timex x Noah', 'Casio'] },
+        { label: 'Condition', options: ['New / Sealed'] },
+        { label: 'Status', options: ['Coming Soon', 'Available'] },
+      ];
+    default:
+      return [
+        { label: 'Status', options: ['Coming Soon', 'Available'] },
+      ];
+  }
+}
+
 export default function CategoryPage({
   title,
   description,
   heroLabel,
   products,
   breadcrumb,
+  categorySlug,
 }: {
   title: string;
   description: string;
   heroLabel: string;
   products: Product[];
   breadcrumb: string[];
+  categorySlug?: string;
 }) {
   const { ref, visible } = useScrollReveal();
   const [sortBy, setSortBy] = useState<SortOption>('featured');
   const [view, setView] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
+  const [activeFilters, setActiveFilters] = useState<Record<string, Set<string>>>({});
+
+  const filterConfigs = getFilterConfig(categorySlug);
+
+  const toggleFilter = (group: string, value: string) => {
+    setActiveFilters((prev) => {
+      const next = { ...prev };
+      const set = new Set(next[group] ?? []);
+      if (set.has(value)) set.delete(value);
+      else set.add(value);
+      next[group] = set;
+      return next;
+    });
+  };
+
+  const filtered = useMemo(() => {
+    let result = products;
+    Object.entries(activeFilters).forEach(([group, values]) => {
+      if (values.size === 0) return;
+      result = result.filter((p) => {
+        if (group === 'Brand') return values.has(p.brand);
+        if (group === 'Status') return values.has(p.status);
+        if (group === 'Size') return p.sizes?.some((s) => values.has(s));
+        if (group === 'Product Type') return values.has(p.productType ?? '');
+        if (group === 'Collection') return values.has(p.collection ?? '');
+        if (group === 'Condition') return values.has(p.condition ?? '');
+        return true;
+      });
+    });
+    return result;
+  }, [products, activeFilters]);
 
   const sorted = useMemo(() => {
-    const sorted = [...products];
+    const arr = [...filtered];
     switch (sortBy) {
-      case 'price-low': return sorted.sort((a, b) => a.price - b.price);
-      case 'price-high': return sorted.sort((a, b) => b.price - a.price);
-      case 'newest': return sorted.sort((a, b) => (b.newArrival ? 1 : 0) - (a.newArrival ? 1 : 0));
-      default: return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+      case 'price-low': return arr.sort((a, b) => a.price - b.price);
+      case 'price-high': return arr.sort((a, b) => b.price - a.price);
+      case 'newest': return arr.sort((a, b) => (b.newArrival ? 1 : 0) - (a.newArrival ? 1 : 0));
+      default: return arr.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
-  }, [products, sortBy]);
+  }, [filtered, sortBy]);
 
   return (
     <div className="page-fade">
@@ -111,40 +189,25 @@ export default function CategoryPage({
             <aside className="hidden md:block w-64 shrink-0">
               <div className="rounded-2xl border border-[#e7eaf0] p-5 sticky top-32">
                 <h3 className="font-display text-base font-bold text-navy mb-4">Filters</h3>
-                <div className="space-y-4">
-                  <div>
-                    <p className="text-sm font-semibold text-navy mb-2">Status</p>
-                    <div className="space-y-1.5">
-                      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                        <input type="checkbox" className="accent-violet" defaultChecked /> Coming Soon
-                      </label>
-                      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                        <input type="checkbox" className="accent-violet" /> Available
-                      </label>
+                <div className="space-y-5">
+                  {filterConfigs.map((config) => (
+                    <div key={config.label}>
+                      <p className="text-sm font-semibold text-navy mb-2">{config.label}</p>
+                      <div className="space-y-1.5">
+                        {config.options.map((opt) => (
+                          <label key={opt} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              className="accent-violet"
+                              checked={activeFilters[config.label]?.has(opt) ?? false}
+                              onChange={() => toggleFilter(config.label, opt)}
+                            />
+                            {opt}
+                          </label>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-navy mb-2">Price Range</p>
-                    <div className="flex items-center gap-2">
-                      <input type="text" placeholder="Min" className="w-full h-9 px-3 rounded-lg border border-[#e7eaf0] text-sm outline-none" />
-                      <span className="text-gray-300">—</span>
-                      <input type="text" placeholder="Max" className="w-full h-9 px-3 rounded-lg border border-[#e7eaf0] text-sm outline-none" />
-                    </div>
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-navy mb-2">Badge</p>
-                    <div className="space-y-1.5">
-                      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                        <input type="checkbox" className="accent-violet" /> LIMITED DROP
-                      </label>
-                      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                        <input type="checkbox" className="accent-violet" /> COLLECTOR PICK
-                      </label>
-                      <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-                        <input type="checkbox" className="accent-violet" /> EXCLUSIVE
-                      </label>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </aside>
@@ -182,7 +245,7 @@ export default function CategoryPage({
 
 function ProductListRow({ product }: { product: Product }) {
   const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price;
-  const formatP = (n: number) => `$${n.toLocaleString('en-US')}`;
+  const formatP = (n: number) => n === 0 ? 'Price coming soon' : `$${n.toLocaleString('en-US')}`;
 
   return (
     <Link
@@ -190,7 +253,7 @@ function ProductListRow({ product }: { product: Product }) {
       className="product-card flex gap-4 bg-white rounded-2xl border border-[#e7eaf0] overflow-hidden p-4"
     >
       <div className="w-28 h-28 rounded-xl overflow-hidden shrink-0">
-        <PlaceholderImage variant={product.image} className="w-full h-full" />
+        <PlaceholderImage variant={product.gallery[0] ?? 'trading-card-box'} className="w-full h-full" />
       </div>
       <div className="flex-1 min-w-0 flex items-center">
         <div className="flex-1 min-w-0">

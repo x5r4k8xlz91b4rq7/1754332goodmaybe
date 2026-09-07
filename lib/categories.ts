@@ -9,12 +9,12 @@ export type CategoryInfo = {
 };
 
 export const categories: CategoryInfo[] = [
-  { name: 'Trading Cards', slug: 'trading-cards', href: '/trading-cards', description: 'Sealed boxes, special editions and limited releases for collectors.', icon: 'cards', tone: 'trading', emoji: '🃏' },
-  { name: 'Sneakers', slug: 'sneakers', href: '/sneakers', description: 'Limited colourways, retros and high-demand releases.', icon: 'sneaker', tone: 'sneaker', emoji: '👟' },
-  { name: 'Apparel', slug: 'apparel', href: '/apparel', description: 'Limited drops, collaborations and collector-grade streetwear.', icon: 'hoodie', tone: 'apparel', emoji: '👕' },
-  { name: 'Soccer', slug: 'soccer', href: '/soccer', description: 'Special edition jerseys and collector-focused football releases.', icon: 'jersey', tone: 'soccer', emoji: '⚽' },
-  { name: 'Collectibles', slug: 'collectibles', href: '/collectibles', description: 'Blind boxes, designer figures and hard-to-find collector pieces.', icon: 'blindbox', tone: 'collectibles', emoji: '🎁' },
-  { name: 'Watches', slug: 'watches', href: '/watches', description: 'Limited collaboration watches and accessible collector timepieces.', icon: 'watch', tone: 'watches', emoji: '⌚' },
+  { name: 'Trading Cards', slug: 'trading-cards', href: '/shop/trading-cards', description: 'Sealed boxes, special editions and limited releases for collectors.', icon: 'cards', tone: 'trading', emoji: '🃏' },
+  { name: 'Sneakers', slug: 'sneakers', href: '/shop/sneakers', description: 'Limited colourways, retros and high-demand releases.', icon: 'sneaker', tone: 'sneaker', emoji: '👟' },
+  { name: 'Apparel', slug: 'apparel', href: '/shop/apparel', description: 'Limited drops, collaborations and collector-grade streetwear.', icon: 'hoodie', tone: 'apparel', emoji: '👕' },
+  { name: 'Soccer', slug: 'soccer', href: '/shop/soccer', description: 'Special edition jerseys and collector-focused football releases.', icon: 'jersey', tone: 'soccer', emoji: '⚽' },
+  { name: 'Collectibles', slug: 'collectibles', href: '/shop/collectibles', description: 'Blind boxes, designer figures and hard-to-find collector pieces.', icon: 'blindbox', tone: 'collectibles', emoji: '🎁' },
+  { name: 'Watches', slug: 'watches', href: '/shop/watches', description: 'Limited collaboration watches and accessible collector timepieces.', icon: 'watch', tone: 'watches', emoji: '⌚' },
 ];
 
 export const secondaryCategories: CategoryInfo[] = [
@@ -23,13 +23,13 @@ export const secondaryCategories: CategoryInfo[] = [
 ];
 
 export const allNavLinks = [
-  { label: 'All Categories', href: '/categories' },
-  { label: 'Trading Cards', href: '/trading-cards' },
-  { label: 'Sneakers', href: '/sneakers' },
-  { label: 'Apparel', href: '/apparel' },
-  { label: 'Soccer', href: '/soccer' },
-  { label: 'Collectibles', href: '/collectibles' },
-  { label: 'Watches', href: '/watches' },
+  { label: 'Drops', href: '/drops' },
+  { label: 'Trading Cards', href: '/shop/trading-cards' },
+  { label: 'Sneakers', href: '/shop/sneakers' },
+  { label: 'Apparel', href: '/shop/apparel' },
+  { label: 'Soccer', href: '/shop/soccer' },
+  { label: 'Collectibles', href: '/shop/collectibles' },
+  { label: 'Watches', href: '/shop/watches' },
   { label: 'New Arrivals', href: '/new-arrivals' },
   { label: 'Sale', href: '/sale', sale: true },
 ];

@@ -3,10 +3,12 @@
 import { useState } from 'react';
 import { ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '@/lib/products';
-import PlaceholderImage from './PlaceholderImage';
+import ProductImage from './ProductImage';
 
 export default function ProductGallery({ product }: { product: Product }) {
-  const variants = [product.image, product.image, product.image, product.image];
+  const galleryVariants = product.gallery.length > 0 ? product.gallery : ['trading-card-box'];
+  const variants = galleryVariants.slice(0, 4);
+  while (variants.length < 4) variants.push(variants[0]);
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -46,7 +48,14 @@ export default function ProductGallery({ product }: { product: Product }) {
 
         {/* Image with zoom + spotlight */}
         <div className="gallery-main w-full h-full">
-          <PlaceholderImage variant={variants[activeIndex]} brand={product.brand} name={product.name} className="w-full h-full" />
+          <ProductImage
+            image={product.image}
+            alt={product.name}
+            brand={product.brand}
+            name={product.name}
+            variant={variants[activeIndex]}
+            className="w-full h-full"
+          />
           <div className="gallery-spotlight" />
         </div>
       </div>
@@ -63,7 +72,12 @@ export default function ProductGallery({ product }: { product: Product }) {
                 : 'border-[#e7eaf0] hover:border-gray-300'
             }`}
           >
-            <PlaceholderImage variant={variant} className="w-full h-full" />
+            <ProductImage
+              image={product.image}
+              alt={product.name}
+              variant={variant}
+              className="w-full h-full"
+            />
           </button>
         ))}
       </div>
