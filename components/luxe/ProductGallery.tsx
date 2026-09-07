@@ -9,7 +9,7 @@ export default function ProductGallery({ product }: { product: Product }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 enter-from-left">
       {/* Main image */}
       <div className="relative aspect-square rounded-2xl product-image overflow-hidden border border-[#e7eaf0]">
         {/* Badges */}
@@ -41,8 +41,12 @@ export default function ProductGallery({ product }: { product: Product }) {
           <ChevronRight className="w-5 h-5 text-navy" />
         </button>
 
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={images[activeIndex]} alt={product.name} className="w-full h-full object-cover" />
+        {/* Image with zoom + spotlight */}
+        <div className="gallery-main w-full h-full">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={images[activeIndex]} alt={product.name} className="w-full h-full object-cover" />
+          <div className="gallery-spotlight" />
+        </div>
       </div>
 
       {/* Thumbnails */}
@@ -51,8 +55,10 @@ export default function ProductGallery({ product }: { product: Product }) {
           <button
             key={i}
             onClick={() => setActiveIndex(i)}
-            className={`aspect-square rounded-xl overflow-hidden border-2 transition-colors ${
-              activeIndex === i ? 'border-violet' : 'border-[#e7eaf0] hover:border-gray-300'
+            className={`aspect-square rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+              activeIndex === i
+                ? 'border-violet ring-2 ring-violet/20'
+                : 'border-[#e7eaf0] hover:border-gray-300'
             }`}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}

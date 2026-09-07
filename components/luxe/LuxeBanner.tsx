@@ -1,6 +1,7 @@
 'use client';
 
 import { ArrowRight, Crown, Zap, Tag, Calendar } from 'lucide-react';
+import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 const benefits = [
   { icon: Zap, label: 'Exclusive Drops' },
@@ -10,11 +11,18 @@ const benefits = [
 ];
 
 export default function LuxeBanner() {
+  const { ref, visible } = useScrollReveal();
+
   return (
-    <section className="section-space">
+    <section ref={ref} className={`section-space reveal ${visible ? 'revealed' : ''}`}>
       <div className="container-wide">
-        <div className="relative rounded-3xl overflow-hidden bg-navy premium-shadow">
-          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle at 80% 20%, #5b2df5 0%, transparent 50%)' }} />
+        <div className="relative rounded-3xl overflow-hidden luxe-banner-bg premium-shadow">
+          {/* Border shimmer */}
+          <div className="luxe-banner-border" />
+
+          {/* Radial glow behind mascot */}
+          <div className="luxe-banner-glow" style={{ left: '15%', top: '50%', transform: 'translate(-50%, -50%)' }} />
+
           <div className="relative grid md:grid-cols-2 gap-8 p-8 md:p-12 items-center">
             {/* Mascot placeholder */}
             <div className="hidden md:block">
@@ -37,17 +45,18 @@ export default function LuxeBanner() {
 
               <div className="grid grid-cols-2 gap-4 mt-6">
                 {benefits.map((b) => (
-                  <div key={b.label} className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
-                      <b.icon className="w-4.5 h-4.5 text-violet-light" style={{ width: 18, height: 18 }} />
+                  <div key={b.label} className="luxe-benefit flex items-center gap-2.5">
+                    <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center transition-colors hover:bg-violet/30">
+                      <b.icon className="text-violet-light" style={{ width: 18, height: 18 }} />
                     </div>
                     <span className="text-sm font-medium text-white">{b.label}</span>
                   </div>
                 ))}
               </div>
 
-              <button className="inline-flex items-center gap-2 h-12 px-7 rounded-xl bg-violet text-white text-sm font-semibold hover:bg-violet-dark transition-colors mt-7">
-                Join DealVault Luxe <ArrowRight className="w-4 h-4" />
+              <button className="btn-luxe inline-flex items-center gap-2 h-12 px-7 rounded-xl text-white text-sm font-semibold mt-7">
+                <span className="btn-shine" />
+                Join DealVault Luxe <ArrowRight className="w-4 h-4 btn-arrow" />
               </button>
             </div>
           </div>

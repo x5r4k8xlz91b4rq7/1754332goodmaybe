@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { categories } from '@/lib/categories';
+import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 const toneMap: Record<string, string> = {
   watch: 'from-blue-50 to-blue-100',
@@ -16,8 +17,10 @@ const toneMap: Record<string, string> = {
 };
 
 export default function CategoryCircles() {
+  const { ref, visible } = useScrollReveal();
+
   return (
-    <section className="section-space border-y border-[#e7eaf0] bg-[#f6f8fb]">
+    <section ref={ref} className={`section-space border-y border-[#e7eaf0] bg-[#f6f8fb] reveal ${visible ? 'revealed' : ''}`}>
       <div className="container-wide">
         <h2 className="font-display text-2xl font-bold text-navy mb-1">Shop by Category</h2>
         <p className="text-sm text-gray-500 mb-8">Explore our curated luxury departments</p>
@@ -27,9 +30,9 @@ export default function CategoryCircles() {
               <div
                 className={`category-card w-20 h-20 md:w-28 md:h-28 rounded-full bg-gradient-to-br ${toneMap[cat.tone]} flex items-center justify-center border border-white`}
               >
-                <span className="text-2xl md:text-3xl">{cat.icon}</span>
+                <span className="cat-icon text-2xl md:text-3xl">{cat.icon}</span>
               </div>
-              <span className={`text-xs md:text-sm font-medium text-center ${cat.name === 'Sale' ? 'text-sale font-semibold' : 'text-navy'}`}>
+              <span className={`text-xs md:text-sm font-medium text-center transition-colors group-hover:text-violet ${cat.name === 'Sale' ? 'text-sale font-semibold' : 'text-navy'}`}>
                 {cat.name}
               </span>
             </Link>

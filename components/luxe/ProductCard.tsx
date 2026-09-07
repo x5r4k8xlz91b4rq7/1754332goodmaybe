@@ -18,6 +18,9 @@ export default function ProductCard({ product }: { product: Product }) {
       onMouseLeave={() => setHovered(false)}
     >
       <Link href={`/product/${product.slug}`} className="block">
+        {/* Shine sweep */}
+        <div className="card-shine" />
+
         {/* Discount badge */}
         <div className="absolute top-3 left-3 z-10 flex gap-2">
           <span className="px-2.5 py-1 rounded-md bg-sale text-white text-xs font-bold">
@@ -32,10 +35,14 @@ export default function ProductCard({ product }: { product: Product }) {
             e.stopPropagation();
             toggleFavorite(product.slug);
           }}
-          className="absolute top-3 right-3 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors"
+          className={`absolute top-3 right-3 z-10 w-9 h-9 rounded-full backdrop-blur flex items-center justify-center transition-all ${
+            fav
+              ? 'bg-white text-violet'
+              : 'bg-white/80 text-gray-400 hover:bg-white hover:text-violet'
+          }`}
         >
           <Heart
-            className={`w-4.5 h-4.5 transition-colors ${fav ? 'fill-violet text-violet' : 'text-gray-400'}`}
+            className={`transition-colors ${fav ? 'fill-violet text-violet' : ''}`}
             style={{ width: 18, height: 18 }}
           />
         </button>
@@ -75,9 +82,10 @@ export default function ProductCard({ product }: { product: Product }) {
               e.preventDefault();
               addItem(product);
             }}
-            className="w-full h-10 rounded-xl bg-navy text-white text-sm font-semibold hover:bg-violet transition-colors flex items-center justify-center gap-2"
+            className="btn-luxe w-full h-10 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2"
           >
-            Add to Cart <ArrowRight className="w-4 h-4" />
+            <span className="btn-shine" />
+            Add to Cart <ArrowRight className="w-4 h-4 btn-arrow" />
           </button>
         </div>
       )}

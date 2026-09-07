@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Search, Heart, ShoppingBag, Crown, Menu, X, User } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
@@ -20,9 +20,16 @@ const navLinks = [
 export default function Header() {
   const { count, openCart, favorites } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white">
+    <header className={`sticky top-0 z-50 bg-white transition-all duration-300 ${scrolled ? 'header-scrolled' : ''}`}>
       {/* Utility bar */}
       <div className="bg-navy text-white text-xs">
         <div className="container-wide flex items-center justify-between h-9">
@@ -88,7 +95,8 @@ export default function Header() {
                 </span>
               )}
             </button>
-            <button className="hidden md:inline-flex items-center h-10 px-5 rounded-xl bg-violet text-white text-sm font-semibold hover:bg-violet-dark transition-colors">
+            <button className="btn-luxe hidden md:inline-flex items-center h-10 px-5 rounded-xl text-white text-sm font-semibold">
+              <span className="btn-shine" />
               Join Luxe
             </button>
             <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden text-navy">
@@ -105,7 +113,7 @@ export default function Header() {
             <Link
               key={link.label}
               href={link.href}
-              className={`hover:text-violet transition-colors ${link.sale ? 'text-sale font-semibold' : 'text-navy'}`}
+              className={`nav-link hover:text-violet transition-colors ${link.sale ? 'text-sale font-semibold' : 'text-navy'}`}
             >
               {link.label}
             </Link>
@@ -141,7 +149,10 @@ export default function Header() {
             ))}
             <div className="flex gap-3 pt-2 border-t border-[#e7eaf0] mt-2">
               <button className="flex-1 h-11 rounded-xl border border-[#e7eaf0] text-sm font-medium text-navy">Sign In</button>
-              <button className="flex-1 h-11 rounded-xl bg-violet text-white text-sm font-semibold">Join Luxe</button>
+              <button className="btn-luxe flex-1 h-11 rounded-xl text-white text-sm font-semibold">
+                <span className="btn-shine" />
+                Join Luxe
+              </button>
             </div>
           </div>
         </div>

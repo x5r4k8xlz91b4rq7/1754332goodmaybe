@@ -2,18 +2,25 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Heart, Truck, ArrowRight, Ruler } from 'lucide-react';
+import { Heart, Truck, ArrowRight, Ruler, Check } from 'lucide-react';
 import { Product, formatPrice } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
 
 export default function ProductInfo({ product }: { product: Product }) {
   const [selectedSize, setSelectedSize] = useState<string | undefined>(product.sizes?.[0]);
   const [selectedColor, setSelectedColor] = useState(0);
+  const [added, setAdded] = useState(false);
   const { addItem, toggleFavorite, isFavorite } = useCart();
   const fav = isFavorite(product.slug);
 
+  const handleAddToCart = () => {
+    addItem(product, selectedSize, product.colors[selectedColor]?.label);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 enter-from-bottom">
       <div>
         <Link href="/" className="text-xs font-bold uppercase tracking-[0.15em] text-violet hover:text-violet-dark transition-colors">
           {product.brand}
@@ -42,8 +49,10 @@ export default function ProductInfo({ product }: { product: Product }) {
             <button
               key={i}
               onClick={() => setSelectedColor(i)}
-              className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition-all ${
-                selectedColor === i ? 'border-violet ring-2 ring-violet/20' : 'border-[#e7eaf0] hover:border-gray-300'
+              className={`w-14 h-14 rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+                selectedColor === i
+                  ? 'border-violet ring-2 ring-violet/20 scale-105'
+                  : 'border-[#e7eaf0] hover:border-gray-300'
               }`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -68,9 +77,9 @@ export default function ProductInfo({ product }: { product: Product }) {
               <button
                 key={size}
                 onClick={() => setSelectedSize(size)}
-                className={`min-w-[3.5rem] h-11 px-3 rounded-xl border text-sm font-semibold transition-all ${
+                className={`min-w-[3.5rem] h-11 px-3 rounded-xl border text-sm font-semibold transition-all duration-200 ${
                   selectedSize === size
-                    ? 'border-violet bg-violet text-white'
+                    ? 'border-violet bg-violet text-white scale-105'
                     : 'border-[#e7eaf0] text-navy hover:border-violet hover:text-violet'
                 }`}
               >
@@ -84,17 +93,24 @@ export default function ProductInfo({ product }: { product: Product }) {
       {/* Add to cart */}
       <div className="pt-2 space-y-3">
         <button
-          onClick={() => addItem(product, selectedSize, product.colors[selectedColor]?.label)}
-          className="w-full h-13 rounded-xl bg-violet text-white text-base font-semibold hover:bg-violet-dark transition-colors flex items-center justify-center gap-2"
+          onClick={handleAddToCart}
+          className={`w-full rounded-xl text-white text-base font-semibold flex items-center justify-center gap-2 transition-all duration-200 ${
+            added ? 'btn-confirm' : 'btn-luxe'
+          }`}
           style={{ height: 52 }}
         >
-          Add to Cart <ArrowRight className="w-5 h-5" />
+          {!added && <span className="btn-shine" />}
+          {added ? (
+            <>Added to Bag <Check className="w-5 h-5" /></>
+          ) : (
+            <>Add to Cart <ArrowRight className="w-5 h-5 btn-arrow" /></>
+          )}
         </button>
         <button
           onClick={() => toggleFavorite(product.slug)}
           className="w-full h-12 rounded-xl border border-[#e7eaf0] text-navy text-sm font-semibold hover:bg-[#f6f8fb] transition-colors flex items-center justify-center gap-2"
         >
-          <Heart className={`w-4 h-4 ${fav ? 'fill-violet text-violet' : ''}`} />
+          <Heart className={`w-4 h-4 transition-all ${fav ? 'fill-violet text-violet scale-110' : ''}`} />
           {fav ? 'Added to favourites' : 'Add to favourites'}
         </button>
       </div>

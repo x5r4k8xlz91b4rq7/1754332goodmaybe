@@ -24,7 +24,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   return (
     <CartProvider>
       <Header />
-      <main className="section-space">
+      <main className="section-space page-fade">
         <div className="container-wide">
           {/* Breadcrumb */}
           <ProductBreadcrumb

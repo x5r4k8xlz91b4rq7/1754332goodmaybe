@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 const tabs = ['1M', '3M', '6M', '1Y'];
 
@@ -13,6 +14,11 @@ const data: Record<string, { month: string; price: number }[]> = {
 
 export default function PriceHistory() {
   const [activeTab, setActiveTab] = useState('3M');
+  const [animateChart, setAnimateChart] = useState(false);
+  const [animatePulse, setAnimatePulse] = useState(false);
+  const { ref, visible } = useScrollReveal();
+  const firstReveal = useRef(true);
+
   const points = data[activeTab];
   const maxPrice = Math.max(...points.map((p) => p.price));
   const minPrice = Math.min(...points.map((p) => p.price));
@@ -32,8 +38,28 @@ export default function PriceHistory() {
 
   const areaD = `${pathD} L ${chartWidth} ${chartHeight} L 0 ${chartHeight} Z`;
 
+  useEffect(() => {
+    if (visible && firstReveal.current) {
+      firstReveal.current = false;
+      setAnimateChart(true);
+      setTimeout(() => setAnimatePulse(true), 1300);
+      setTimeout(() => setAnimatePulse(false), 2100);
+    }
+  }, [visible]);
+
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab);
+    setAnimateChart(false);
+    setAnimatePulse(false);
+    requestAnimationFrame(() => {
+      setTimeout(() => setAnimateChart(true), 50);
+      setTimeout(() => setAnimatePulse(true), 1300);
+      setTimeout(() => setAnimatePulse(false), 2100);
+    });
+  };
+
   return (
-    <div className="rounded-2xl border border-[#e7eaf0] p-6">
+    <div ref={ref} className={`rounded-2xl border border-[#e7eaf0] p-6 reveal ${visible ? 'revealed' : ''}`}>
       <h3 className="font-display text-lg font-bold text-navy">Price History</h3>
       <p className="text-sm text-gray-500 mt-1 mb-5">See how this deal compares to past prices.</p>
 
@@ -42,7 +68,7 @@ export default function PriceHistory() {
         {tabs.map((tab) => (
           <button
             key={tab}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => handleTabChange(tab)}
             className={`px-4 h-9 rounded-lg text-sm font-semibold transition-colors ${
               activeTab === tab
                 ? 'bg-violet text-white'
@@ -63,8 +89,16 @@ export default function PriceHistory() {
               <stop offset="100%" stopColor="#5b2df5" stopOpacity="0" />
             </linearGradient>
           </defs>
-          <path d={areaD} fill="url(#priceGrad)" />
-          <path d={pathD} fill="none" stroke="#5b2df5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={areaD} fill="url(#priceGrad)" className={`chart-area ${animateChart ? 'animate-fade' : ''}`} />
+          <path
+            d={pathD}
+            fill="none"
+            stroke="#5b2df5"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`chart-line ${animateChart ? 'animate-draw' : ''}`}
+          />
           {points.map((p, i) => {
             const x = i * stepX;
             const y = chartHeight - ((p.price - minPrice) / range) * (chartHeight - 20) - 10;
@@ -88,7 +122,7 @@ export default function PriceHistory() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="w-2 h-2 rounded-full bg-violet" />
+          <div className={`w-2 h-2 rounded-full bg-violet ${animatePulse ? 'price-pulse' : ''}`} />
           <div>
             <p className="text-lg font-bold text-violet">${points[points.length - 1]?.price}</p>
             <p className="text-xs text-gray-500">Today</p>
