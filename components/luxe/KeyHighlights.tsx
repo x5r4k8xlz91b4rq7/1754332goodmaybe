@@ -1,12 +1,13 @@
 'use client';
 
-import { Gem, Star, Layers, Users } from 'lucide-react';
+import { Gem, Star, Layers, Users, ShieldCheck } from 'lucide-react';
 
 const iconMap: Record<string, typeof Gem> = {
   gem: Gem,
   star: Star,
   layers: Layers,
   users: Users,
+  shield: ShieldCheck,
 };
 
 export default function KeyHighlights({

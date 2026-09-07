@@ -19,7 +19,8 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   const product = getProduct(params.slug);
   if (!product) notFound();
 
-  const similar = products.filter((p) => p.slug !== product.slug).slice(0, 6);
+  const similar = products.filter((p) => p.slug !== product.slug && p.category === product.category).slice(0, 6);
+  const similarProducts = similar.length > 0 ? similar : products.filter((p) => p.slug !== product.slug).slice(0, 6);
 
   return (
     <CartProvider>
@@ -62,7 +63,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
           {/* Similar deals */}
           <div className="mt-12">
-            <ProductGrid title="Similar Deals" subtitle="You might also like these curated picks." products={similar} />
+            <ProductGrid title="Similar Deals" subtitle="You might also like these curated picks." products={similarProducts} />
           </div>
         </div>
       </main>

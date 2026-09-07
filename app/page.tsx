@@ -12,6 +12,8 @@ import CartDrawer from '@/components/luxe/CartDrawer';
 import { products } from '@/lib/products';
 
 export default function Home() {
+  const featured = products.filter((p) => p.featured);
+
   return (
     <CartProvider>
       <Header />
@@ -19,9 +21,9 @@ export default function Home() {
         <Hero />
         <CategoryCircles />
         <ProductGrid
-          title="Featured Deals"
-          subtitle="Curated luxury picks at unbeatable prices."
-          products={products}
+          title="Featured Drops"
+          subtitle="Curated collector picks at unbeatable prices."
+          products={featured}
         />
         <BrandStrip />
         <LuxeBanner />

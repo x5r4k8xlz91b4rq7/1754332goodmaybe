@@ -5,11 +5,16 @@ import { Heart, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Product, formatPrice } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
+import PlaceholderImage from './PlaceholderImage';
 
 export default function ProductCard({ product }: { product: Product }) {
   const { toggleFavorite, isFavorite, addItem } = useCart();
   const [hovered, setHovered] = useState(false);
   const fav = isFavorite(product.slug);
+  const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price;
+  const discountPercent = hasDiscount
+    ? Math.round(((product.compareAtPrice! - product.price) / product.compareAtPrice!) * 100)
+    : 0;
 
   return (
     <div
@@ -21,10 +26,15 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Shine sweep */}
         <div className="card-shine" />
 
-        {/* Discount badge */}
+        {/* Badge */}
         <div className="absolute top-3 left-3 z-10 flex gap-2">
-          <span className="px-2.5 py-1 rounded-md bg-sale text-white text-xs font-bold">
-            {product.discount}% OFF
+          {hasDiscount && (
+            <span className="px-2.5 py-1 rounded-md bg-sale text-white text-xs font-bold">
+              {discountPercent}% OFF
+            </span>
+          )}
+          <span className="px-2.5 py-1 rounded-md bg-navy text-white text-xs font-bold">
+            {product.badge}
           </span>
         </div>
 
@@ -47,10 +57,16 @@ export default function ProductCard({ product }: { product: Product }) {
           />
         </button>
 
+        {/* Status pill */}
+        <div className="absolute bottom-3 left-3 z-10">
+          <span className="px-2 py-0.5 rounded-full bg-violet-light text-violet text-[10px] font-semibold">
+            {product.status}
+          </span>
+        </div>
+
         {/* Image */}
         <div className="product-image aspect-square overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+          <PlaceholderImage variant={product.image} brand={product.brand} name={product.name} className="w-full h-full" />
         </div>
 
         {/* Info */}
@@ -59,11 +75,13 @@ export default function ProductCard({ product }: { product: Product }) {
           <h3 className="text-sm font-semibold text-navy mt-1 leading-snug line-clamp-2 min-h-[2.5rem]">
             {product.name}
           </h3>
-          <p className="text-xs text-gray-500 mt-0.5">{product.subtitle}</p>
+          <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{product.description}</p>
 
           <div className="flex items-center gap-2 mt-2.5">
             <span className="text-lg font-bold text-navy">{formatPrice(product.price)}</span>
-            <span className="text-sm text-gray-400 line-through">{formatPrice(product.originalPrice)}</span>
+            {hasDiscount && (
+              <span className="text-sm text-gray-400 line-through">{formatPrice(product.compareAtPrice!)}</span>
+            )}
           </div>
 
           {/* Trust badge */}
@@ -85,7 +103,7 @@ export default function ProductCard({ product }: { product: Product }) {
             className="btn-luxe w-full h-10 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2"
           >
             <span className="btn-shine" />
-            Add to Cart <ArrowRight className="w-4 h-4 btn-arrow" />
+            Notify Me <ArrowRight className="w-4 h-4 btn-arrow" />
           </button>
         </div>
       )}

@@ -1,32 +1,38 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Search, Heart, ShoppingBag, Crown, Menu, X, User } from 'lucide-react';
+import { Search, Heart, ShoppingBag, Crown, Menu, X, User, ArrowRight } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
-
-const navLinks = [
-  { label: 'All Categories', href: '/' },
-  { label: 'Watches', href: '/' },
-  { label: 'Sneakers', href: '/' },
-  { label: 'Bags', href: '/' },
-  { label: 'Sunglasses', href: '/' },
-  { label: 'Accessories', href: '/' },
-  { label: 'Fragrance', href: '/' },
-  { label: 'New Arrivals', href: '/' },
-  { label: 'Sale', href: '/', sale: true },
-];
+import { allNavLinks } from '@/lib/categories';
+import { searchProducts, formatPrice } from '@/lib/products';
+import PlaceholderImage from './PlaceholderImage';
 
 export default function Header() {
   const { count, openCart, favorites } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchFocused, setSearchFocused] = useState(false);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSearchFocused(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
+  const searchResults = searchQuery.length >= 2 ? searchProducts(searchQuery).slice(0, 5) : [];
 
   return (
     <header className={`sticky top-0 z-50 bg-white transition-all duration-300 ${scrolled ? 'header-scrolled' : ''}`}>
@@ -62,15 +68,53 @@ export default function Header() {
           </Link>
 
           {/* Search */}
-          <div className="flex-1 max-w-2xl desktop-only">
+          <div ref={searchRef} className="flex-1 max-w-2xl desktop-only relative">
             <div className="relative">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => setSearchFocused(true)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+                  }
+                }}
                 placeholder="Search for watches, sneakers, bags, sunglasses, and more..."
                 className="w-full h-12 pl-12 pr-4 rounded-xl border border-[#e7eaf0] bg-[#f6f8fb] text-sm outline-none focus:border-violet focus:bg-white transition-colors"
               />
             </div>
+
+            {/* Search dropdown */}
+            {searchFocused && searchResults.length > 0 && (
+              <div className="absolute top-full mt-2 left-0 right-0 bg-white rounded-xl border border-[#e7eaf0] premium-shadow overflow-hidden z-50">
+                {searchResults.map((product) => (
+                  <Link
+                    key={product.id}
+                    href={`/product/${product.slug}`}
+                    onClick={() => { setSearchFocused(false); setSearchQuery(''); }}
+                    className="flex items-center gap-3 p-3 hover:bg-[#f6f8fb] transition-colors border-b border-[#eef1f6] last:border-0"
+                  >
+                    <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+                      <PlaceholderImage variant={product.image} className="w-full h-full" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-navy truncate">{product.name}</p>
+                      <p className="text-[11px] text-gray-400">{product.brand} · {product.category}</p>
+                    </div>
+                    <span className="text-sm font-bold text-violet">{formatPrice(product.price)}</span>
+                  </Link>
+                ))}
+                <Link
+                  href={`/search?q=${encodeURIComponent(searchQuery)}`}
+                  onClick={() => setSearchFocused(false)}
+                  className="flex items-center justify-center gap-1.5 py-3 text-sm font-semibold text-violet hover:bg-violet-light transition-colors"
+                >
+                  View all results <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Right actions */}
@@ -109,7 +153,7 @@ export default function Header() {
       {/* Second nav row */}
       <nav className="border-b border-[#e7eaf0] hidden md:block">
         <div className="container-wide flex items-center gap-7 h-11 text-sm font-medium">
-          {navLinks.map((link) => (
+          {allNavLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}
@@ -127,6 +171,13 @@ export default function Header() {
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <input
             type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && searchQuery.trim()) {
+                window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+              }
+            }}
             placeholder="Search luxury products..."
             className="w-full h-11 pl-12 pr-4 rounded-xl border border-[#e7eaf0] bg-[#f6f8fb] text-sm outline-none focus:border-violet focus:bg-white transition-colors"
           />
@@ -137,7 +188,7 @@ export default function Header() {
       {mobileOpen && (
         <div className="md:hidden border-b border-[#e7eaf0] bg-white">
           <div className="container-wide py-4 flex flex-col gap-3">
-            {navLinks.map((link) => (
+            {allNavLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
@@ -160,3 +211,4 @@ export default function Header() {
     </header>
   );
 }
+
