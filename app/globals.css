@@ -21,13 +21,8 @@ button { cursor: pointer; }
 .hero-mascot:before { bottom: 11%; border-color: #e02b37; transform: rotate(12deg); animation: streak-pulse 4s ease-in-out infinite; }
 .hero-mascot:after { bottom: 18%; animation: streak-pulse 4s ease-in-out infinite 1s; }
 
-.mascot-body { position: absolute; width: 160px; height: 220px; left: 45%; bottom: 55px; transform: rotate(17deg); background: linear-gradient(160deg, #101a33 20%, #0a0e1b 70%); border-radius: 42% 48% 30% 35%; box-shadow: inset -20px -5px 0 #1265cf; z-index: 2; animation: mascot-float 5s ease-in-out infinite; }
-.mascot-head { position: absolute; width: 112px; height: 105px; left: 48%; bottom: 235px; transform: rotate(12deg); background: #0a1326; border-radius: 46% 46% 42% 42%; z-index: 4; border: 8px solid #166fd8; animation: mascot-float 5s ease-in-out infinite 0.3s; }
-.mascot-head:before { content: '⌄'; position: absolute; top: -26px; right: 9px; color: white; background: #166fd8; font-size: 28px; width: 38px; height: 32px; text-align: center; border-radius: 14px 14px 4px 4px; }
-.mascot-eye { position: absolute; top: 30px; width: 30px; height: 42px; background: white; border-radius: 60% 20%; box-shadow: 0 0 10px #7db8ff; }
-.mascot-eye.left { left: 22px; transform: rotate(-25deg); }.mascot-eye.right { right: 22px; transform: rotate(25deg); }
-.mascot-shoe { position: absolute; width: 120px; height: 46px; border-radius: 70% 35% 35% 20%; background: linear-gradient(#3d9bf4 0 45%, #10182b 46%); border-bottom: 9px solid #fff; z-index: 5; }
-.mascot-shoe.one { left: 40%; bottom: 43px; transform: rotate(13deg); animation: mascot-float 5s ease-in-out infinite 0.6s; }.mascot-shoe.two { left: 55%; bottom: 70px; transform: rotate(-17deg); animation: mascot-float 5s ease-in-out infinite 0.9s; }
+.mascot-image { position: absolute; inset: 0; z-index: 2; animation: mascot-image-float 5s ease-in-out infinite; will-change: transform; pointer-events: none; }
+@keyframes mascot-image-float { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-8px) scale(1.01); } }
 
 .mascot-glow { position: absolute; width: 280px; height: 280px; left: 50%; top: 45%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(91,45,245,0.12) 0%, rgba(37,99,235,0.06) 40%, transparent 70%); z-index: 1; animation: glow-breathe 6s ease-in-out infinite; }
 
@@ -35,14 +30,6 @@ button { cursor: pointer; }
 .hero-ambient-2 { position: absolute; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(10,22,48,0.06) 0%, transparent 60%); bottom: -120px; left: -60px; animation: drift-2 14s ease-in-out infinite; pointer-events: none; }
 .hero-ambient-3 { position: absolute; width: 250px; height: 250px; border-radius: 50%; background: radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 60%); top: 30%; left: 20%; animation: drift-3 10s ease-in-out infinite; pointer-events: none; }
 .hero-ambient-red { position: absolute; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(224,43,55,0.04) 0%, transparent 60%); bottom: 15%; right: 25%; animation: drift-1 8s ease-in-out infinite; pointer-events: none; }
-
-@keyframes mascot-float { 0%, 100% { transform: translateY(0) rotate(17deg) scale(1); } 50% { transform: translateY(-8px) rotate(16deg) scale(1.01); } }
-.mascot-head { animation-name: mascot-float-head; }
-@keyframes mascot-float-head { 0%, 100% { transform: translateY(0) rotate(12deg) scale(1); } 50% { transform: translateY(-6px) rotate(11deg) scale(1.01); } }
-.mascot-shoe.one { animation-name: mascot-float-shoe1; }
-@keyframes mascot-float-shoe1 { 0%, 100% { transform: translateY(0) rotate(13deg); } 50% { transform: translateY(-5px) rotate(13deg); } }
-.mascot-shoe.two { animation-name: mascot-float-shoe2; }
-@keyframes mascot-float-shoe2 { 0%, 100% { transform: translateY(0) rotate(-17deg); } 50% { transform: translateY(-7px) rotate(-17deg); } }
 
 @keyframes glow-breathe { 0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.08); } }
 @keyframes streak-pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.65; } }
@@ -182,6 +169,6 @@ button { cursor: pointer; }
   .chart-area { opacity: 1 !important; }
 }
 
-@media (max-width: 900px) { .container-wide { width: min(100% - 32px, 720px); }.desktop-only { display: none !important; }.hero-mascot { min-height: 340px; }.mascot-body { left: 56%; }.mascot-head { left: 60%; } }
-@media (max-width: 600px) { .container-wide { width: calc(100% - 24px); }.section-space { padding: 30px 0; }.hero-mascot { min-height: 280px; }.mascot-body { transform: scale(.78) rotate(17deg); left: 47%; bottom: 15px; }.mascot-head { transform: scale(.78) rotate(12deg); left: 48%; bottom: 173px; }.mascot-shoe { transform: scale(.72) rotate(13deg); left: 35%; bottom: 20px; }.mascot-shoe.two { transform: scale(.72) rotate(-17deg); left: 51%; bottom: 38px; } }
+@media (max-width: 900px) { .container-wide { width: min(100% - 32px, 720px); }.desktop-only { display: none !important; }.hero-mascot { min-height: 340px; } }
+@media (max-width: 600px) { .container-wide { width: calc(100% - 24px); }.section-space { padding: 30px 0; }.hero-mascot { min-height: 280px; } }
 @layer base { * { @apply border-border; } }

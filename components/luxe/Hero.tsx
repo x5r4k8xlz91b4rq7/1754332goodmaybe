@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, Truck, Sparkles } from 'lucide-react';
@@ -136,13 +137,14 @@ export default function Hero() {
               {/* Mascot inner (parallax target) */}
               <div className="mascot-inner" style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
                 <div className="mascot-glow" />
-                <div className="mascot-body" />
-                <div className="mascot-head">
-                  <div className="mascot-eye left" />
-                  <div className="mascot-eye right" />
-                </div>
-                <div className="mascot-shoe one" />
-                <div className="mascot-shoe two" />
+                <Image
+                  src="/brand/neon_streetwear_mascot_with_luxury_gear.png"
+                  alt="Vanta Row Luxe mascot with limited-edition sneakers, watch, and shoebox"
+                  fill
+                  priority
+                  sizes="(max-width: 600px) 100vw, (max-width: 1024px) 80vw, 50vw"
+                  className="mascot-image object-contain"
+                />
               </div>
 
               {/* Decorative copy */}
