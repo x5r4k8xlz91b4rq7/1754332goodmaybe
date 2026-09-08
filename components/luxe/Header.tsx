@@ -38,7 +38,7 @@ export default function Header() {
     <header className={`sticky top-0 z-50 bg-white transition-all duration-300 ${scrolled ? 'header-scrolled' : ''}`}>
       {/* Utility bar */}
       <div className="bg-navy text-white text-xs">
-        <div className="container-wide flex items-center justify-between h-9">
+        <div className="container-wide flex items-center justify-between h-7">
           <div className="flex items-center gap-3 opacity-90">
             <span>Same-Day Shipping on Select Items</span>
             <span className="opacity-40">|</span>
@@ -56,21 +56,21 @@ export default function Header() {
 
       {/* Main nav */}
       <div className="border-b border-[#e7eaf0]">
-        <div className="container-wide flex items-center gap-6 h-20">
+        <div className="container-wide flex items-center gap-6 h-16">
           <Link href="/" className="flex items-center gap-2 shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-violet flex items-center justify-center">
-              <Crown className="w-5 h-5 text-white" strokeWidth={2.5} />
+            <div className="w-9 h-9 rounded-lg bg-violet flex items-center justify-center">
+              <Crown className="w-4.5 h-4.5 text-white" strokeWidth={2.5} />
             </div>
             <div className="leading-none">
-              <div className="font-display text-xl font-bold text-navy tracking-tight">DealVault Luxe</div>
-              <div className="text-[10px] uppercase tracking-[0.15em] text-gray-400 mt-0.5">Curated Luxury</div>
+              <div className="font-display text-lg font-bold text-navy tracking-tight">DealVault Luxe</div>
+              <div className="text-[9px] uppercase tracking-[0.15em] text-gray-400 mt-0.5">Curated Luxury</div>
             </div>
           </Link>
 
           {/* Search */}
           <div ref={searchRef} className="flex-1 max-w-2xl desktop-only relative">
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-gray-400" />
               <input
                 type="text"
                 value={searchQuery}
@@ -82,7 +82,7 @@ export default function Header() {
                   }
                 }}
                 placeholder="Search for watches, sneakers, bags, sunglasses, and more..."
-                className="w-full h-12 pl-12 pr-4 rounded-xl border border-[#e7eaf0] bg-[#f6f8fb] text-sm outline-none focus:border-violet focus:bg-white transition-colors"
+                className="w-full h-10 pl-11 pr-4 rounded-lg border border-[#e7eaf0] bg-[#f6f8fb] text-sm outline-none focus:border-violet focus:bg-white transition-colors"
               />
             </div>
 
@@ -118,13 +118,13 @@ export default function Header() {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-5 ml-auto">
+          <div className="flex items-center gap-4 ml-auto">
             <button className="hidden md:flex items-center gap-1.5 text-sm font-medium text-navy hover:text-violet transition-colors">
-              <User className="w-5 h-5" />
+              <User className="w-4.5 h-4.5" />
               <span>Sign In</span>
             </button>
             <button className="relative text-navy hover:text-violet transition-colors">
-              <Heart className="w-6 h-6" />
+              <Heart className="w-5 h-5" />
               {favorites.length > 0 && (
                 <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-violet text-white text-[10px] flex items-center justify-center font-bold">
                   {favorites.length}
@@ -132,14 +132,14 @@ export default function Header() {
               )}
             </button>
             <button onClick={openCart} className="relative text-navy hover:text-violet transition-colors">
-              <ShoppingBag className="w-6 h-6" />
+              <ShoppingBag className="w-5 h-5" />
               {count > 0 && (
                 <span className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-violet text-white text-[10px] flex items-center justify-center font-bold">
                   {count}
                 </span>
               )}
             </button>
-            <button className="btn-luxe hidden md:inline-flex items-center h-10 px-5 rounded-xl text-white text-sm font-semibold">
+            <button className="btn-luxe hidden md:inline-flex items-center h-9 px-4 rounded-lg text-white text-sm font-semibold">
               <span className="btn-shine" />
               Join Luxe
             </button>
@@ -152,7 +152,7 @@ export default function Header() {
 
       {/* Second nav row */}
       <nav className="border-b border-[#e7eaf0] hidden md:block">
-        <div className="container-wide flex items-center gap-7 h-11 text-sm font-medium">
+        <div className="container-wide flex items-center gap-6 h-10 text-sm font-medium">
           {allNavLinks.map((link) => (
             <Link
               key={link.label}

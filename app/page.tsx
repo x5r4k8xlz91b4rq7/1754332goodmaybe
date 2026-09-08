@@ -36,15 +36,12 @@ export default function Home() {
           subtitle="The pieces everyone is watching right now."
           products={trending}
         />
-        <ProductGrid
+        <BrandStrip />
+        <ProductCarousel
           title="Just Dropped"
           subtitle="Fresh arrivals, newly listed collector pieces."
           products={justDropped}
-        />
-        <ProductGrid
-          title="The Vault"
-          subtitle="High-scarcity items for serious collectors."
-          products={vault}
+          viewAllHref="/new-arrivals"
         />
         <ProductCarousel
           title="Trading Cards"
@@ -58,7 +55,6 @@ export default function Home() {
           products={sneakers}
           viewAllHref="/shop/sneakers"
         />
-        <BrandStrip />
         <ProductCarousel
           title="Collectibles"
           subtitle="Blind boxes, designer figures and hard-to-find pieces."
