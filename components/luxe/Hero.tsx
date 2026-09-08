@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, Truck, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Crown, ShieldCheck, Sparkles, Truck } from 'lucide-react';
 
 export default function Hero() {
   const mascotRef = useRef<HTMLDivElement>(null);
@@ -23,10 +23,8 @@ export default function Hero() {
 
     const handleMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) / rect.width;
-      const dy = (e.clientY - cy) / rect.height;
+      const dx = (e.clientX - (rect.left + rect.width / 2)) / rect.width;
+      const dy = (e.clientY - (rect.top + rect.height / 2)) / rect.height;
       targetX = -dx * 12;
       targetY = -dy * 8;
     };
@@ -40,9 +38,7 @@ export default function Hero() {
       currentX += (targetX - currentX) * 0.06;
       currentY += (targetY - currentY) * 0.06;
       const inner = container.querySelector('.mascot-inner') as HTMLElement;
-      if (inner) {
-        inner.style.transform = `translate(${currentX}px, ${currentY}px)`;
-      }
+      if (inner) inner.style.transform = `translate(${currentX}px, ${currentY}px)`;
       raf = requestAnimationFrame(animate);
     };
 
@@ -59,81 +55,56 @@ export default function Hero() {
 
   return (
     <section className="hero-banner">
-      {/* Ambient glows - integrated into the full banner */}
       <div className="hero-ambient-1" />
       <div className="hero-ambient-2" />
       <div className="hero-ambient-3" />
       <div className="hero-ambient-red" />
+      <div className="hero-cityline" />
 
       <div className="container-wide hero-banner-inner">
-        {/* Left copy */}
         <div className="hero-copy">
-          <div className="hero-enter hero-enter-1 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-light text-violet text-xs font-semibold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5" />
+          <div className="hero-enter hero-enter-1 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.24em] text-violet">
+            <Sparkles className="w-3 h-3" />
             Limited Edition Drops
           </div>
-          <h1 className="hero-enter hero-enter-2 font-display text-4xl md:text-5xl lg:text-6xl font-bold text-navy mt-5 leading-[1.1]">
+          <h1 className="hero-enter hero-enter-2 font-display text-[38px] md:text-[44px] lg:text-[48px] font-bold text-navy mt-3 leading-[1.02] tracking-[-0.035em]">
             Verified Deals on
             <br />
             Limited Edition Pieces
           </h1>
-          <p className="hero-enter hero-enter-3 text-base text-gray-500 mt-5 max-w-md leading-relaxed">
+          <p className="hero-enter hero-enter-3 text-[15px] text-[#526078] mt-3 max-w-[420px] leading-[1.35]">
             Curated drops. Iconic watches. Exclusive sneakers.
             <br />
             Luxury brands. Same-day offers.
           </p>
-          <div className="hero-enter hero-enter-4 flex flex-wrap gap-3 mt-7">
-            <Link
-              href="/drops"
-              className="btn-luxe inline-flex items-center gap-2 h-12 px-7 rounded-xl text-white text-sm font-semibold"
-            >
+          <div className="hero-enter hero-enter-4 flex flex-wrap gap-3 mt-4">
+            <Link href="/drops" className="btn-luxe inline-flex items-center gap-2 h-10 px-5 rounded-lg text-white text-xs font-semibold">
               <span className="btn-shine" />
-              Shop the Drops <ArrowRight className="w-4 h-4 btn-arrow" />
+              Shop the Drops <ArrowRight className="w-3.5 h-3.5 btn-arrow" />
             </Link>
-            <Link
-              href="/categories"
-              className="inline-flex items-center gap-2 h-12 px-7 rounded-xl border border-[#e7eaf0] text-navy text-sm font-semibold hover:bg-[#f6f8fb] transition-colors"
-            >
+            <Link href="/categories" className="inline-flex items-center gap-2 h-10 px-5 rounded-lg border border-[#17294a] text-navy text-xs font-semibold hover:bg-white/70 transition-colors">
               Explore All Categories
             </Link>
           </div>
 
-          {/* Trust indicators */}
-          <div className="hero-enter hero-enter-5 flex flex-wrap gap-6 mt-8 pt-8 border-t border-[#e7eaf0]">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-violet-light flex items-center justify-center">
-                <ShieldCheck className="w-5 h-5 text-violet" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-navy">100% Authentic</p>
-                <p className="text-xs text-gray-500">Verified products</p>
-              </div>
+          <div className="hero-enter hero-enter-5 flex flex-wrap gap-4 mt-5 pt-4 border-t border-[#dbe2ec]">
+            <div className="hero-trust-item">
+              <div className="hero-trust-icon"><ShieldCheck className="w-4 h-4" /></div>
+              <div><p>100% Authentic</p><span>Verified products</span></div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-violet-light flex items-center justify-center">
-                <Truck className="w-5 h-5 text-violet" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-navy">Same-Day Shipping</p>
-                <p className="text-xs text-gray-500">On select items</p>
-              </div>
+            <div className="hero-trust-item">
+              <div className="hero-trust-icon"><Truck className="w-4 h-4" /></div>
+              <div><p>Same-Day Shipping</p><span>On select items</span></div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-violet-light flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-violet" />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-navy">Exclusive Drops</p>
-                <p className="text-xs text-gray-500">Members get early access</p>
-              </div>
+            <div className="hero-trust-item">
+              <div className="hero-trust-icon"><Crown className="w-4 h-4" /></div>
+              <div><p>Exclusive Drops</p><span>Members get early access</span></div>
             </div>
           </div>
         </div>
 
-        {/* Right - mascot art (dominates ~50% of banner, extends toward center) */}
         <div ref={mascotRef} className="hero-mascot-area">
           <div className="hero-enter hero-enter-6 hero-mascot-stage">
-            {/* Mascot inner (parallax target) */}
             <div className="mascot-inner" style={{ position: 'absolute', inset: 0, willChange: 'transform' }}>
               <div className="mascot-glow" />
               <Image
@@ -141,9 +112,16 @@ export default function Hero() {
                 alt="Vanta Row Luxe mascot with limited-edition sneakers, watch, and shoebox"
                 fill
                 priority
-                sizes="(max-width: 600px) 100vw, (max-width: 1024px) 80vw, 55vw"
+                sizes="(max-width: 600px) 100vw, (max-width: 1024px) 65vw, 58vw"
                 className="mascot-image object-contain"
               />
+            </div>
+            <div className="hero-art-copy hero-art-copy-top">RARE PIECES<br /><span>BRIGHTER PEOPLE</span></div>
+            <div className="hero-art-copy hero-art-copy-bottom">MORE THAN DEALS.<br /><span>IT&apos;S A LIFESTYLE.</span></div>
+            <button className="hero-arrow hero-arrow-left" aria-label="Previous hero slide"><ArrowLeft className="w-4 h-4" /></button>
+            <button className="hero-arrow hero-arrow-right" aria-label="Next hero slide"><ArrowRight className="w-4 h-4" /></button>
+            <div className="hero-dots" aria-label="Hero slides">
+              <span className="active" /><span /><span /><span />
             </div>
           </div>
         </div>

@@ -13,14 +13,12 @@ import CartDrawer from '@/components/luxe/CartDrawer';
 import {
   getTrendingProducts,
   getNewArrivals,
-  getVaultProducts,
   getProductsByCategory,
 } from '@/lib/products';
 
 export default function Home() {
-  const trending = getTrendingProducts().slice(0, 8);
+  const trending = getTrendingProducts().slice(0, 6);
   const justDropped = getNewArrivals().slice(0, 6);
-  const vault = getVaultProducts().slice(0, 6);
   const tradingCards = getProductsByCategory('Trading Cards').slice(0, 6);
   const sneakers = getProductsByCategory('Sneakers').slice(0, 6);
   const collectibles = getProductsByCategory('Collectibles').slice(0, 6);

@@ -18,7 +18,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <div
-      className="product-card group relative bg-white rounded-2xl border border-[#e7eaf0] overflow-hidden"
+      className="product-card group relative bg-white rounded-lg border border-[#e7eaf0] overflow-hidden"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -27,7 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
         <div className="card-shine" />
 
         {/* Badge */}
-        <div className="absolute top-3 left-3 z-10 flex gap-2">
+        <div className="absolute top-2.5 left-2.5 z-10 flex gap-2">
           {hasDiscount && (
             <span className="px-2.5 py-1 rounded-md bg-sale text-white text-xs font-bold">
               {discountPercent}% OFF
@@ -58,7 +58,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </button>
 
         {/* Status pill */}
-        <div className="absolute bottom-3 left-3 z-10">
+        <div className="absolute bottom-2.5 left-2.5 z-10">
           <span className="px-2 py-0.5 rounded-full bg-violet-light text-violet text-[10px] font-semibold">
             {product.status}
           </span>
@@ -77,24 +77,16 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Info */}
-        <div className="p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-wider text-gray-400">{product.brand}</p>
-          <h3 className="text-sm font-semibold text-navy mt-1 leading-snug line-clamp-2 min-h-[2.5rem]">
+        <div className="p-3">
+          <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">{product.brand}</p>
+          <h3 className="text-[13px] font-semibold text-navy mt-1 leading-snug line-clamp-2 min-h-[2.25rem]">
             {product.name}
           </h3>
-          <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{product.description}</p>
-
-          <div className="flex items-center gap-2 mt-2.5">
-            <span className="text-lg font-bold text-navy">{formatPrice(product.price)}</span>
+          <div className="flex items-center gap-2 mt-2">
+            <span className="text-base font-bold text-navy">{formatPrice(product.price)}</span>
             {hasDiscount && (
-              <span className="text-sm text-gray-400 line-through">{formatPrice(product.compareAtPrice!)}</span>
+              <span className="text-xs text-gray-400 line-through">{formatPrice(product.compareAtPrice!)}</span>
             )}
-          </div>
-
-          {/* Trust badge */}
-          <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-violet-light text-violet text-[11px] font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-violet" />
-            {product.badge}
           </div>
         </div>
       </Link>

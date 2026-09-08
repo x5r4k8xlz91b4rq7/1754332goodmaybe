@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { categories, secondaryCategories, toneMap } from '@/lib/categories';
+import { categories, secondaryCategories } from '@/lib/categories';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import ProductImage from './ProductImage';
 import { getProductsByCategory } from '@/lib/products';
@@ -22,42 +22,36 @@ export default function CategoryCircles() {
   const allCats = [...categories, ...secondaryCategories];
 
   return (
-    <section ref={ref} className={`border-b border-[#e7eaf0] bg-white py-6 reveal ${visible ? 'revealed' : ''}`}>
+    <section ref={ref} className={`border-b border-[#e7eaf0] bg-white py-4 reveal ${visible ? 'revealed' : ''}`}>
       <div className="container-wide">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-lg font-bold text-navy">Shop by Category</h2>
-        </div>
-        <div className="flex flex-wrap justify-center gap-4 md:gap-8">
-          {allCats.map((cat) => {
-            const catProducts = getProductsByCategory(cat.name);
-            const firstProduct = catProducts[0];
-            const variant = categoryVariantMap[cat.slug] ?? 'trading-card-box';
-            return (
-              <Link key={cat.slug} href={cat.href} className="flex flex-col items-center gap-2 group">
-                <div
-                  className={`category-card w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border border-[#e7eaf0] ${toneMap[cat.tone]}`}
-                >
-                  {firstProduct ? (
+        <div className="flex items-center justify-between gap-6">
+          <h2 className="font-display text-sm font-bold text-navy whitespace-nowrap hidden md:block">Shop by Category</h2>
+          <div className="flex flex-1 justify-evenly gap-3 md:gap-4">
+            {allCats.map((cat) => {
+              const catProducts = getProductsByCategory(cat.name);
+              const firstProduct = catProducts[0];
+              const variant = categoryVariantMap[cat.slug] ?? 'trading-card-box';
+              return (
+                <Link key={cat.slug} href={cat.href} className="flex flex-col items-center gap-1.5 group flex-1 min-w-0">
+                  <div
+                    className={`category-card w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border border-[#e7eaf0] bg-[#f5f6f8]`}
+                  >
                     <ProductImage
-                      image={firstProduct.image}
-                      alt={firstProduct.name}
-                      brand={firstProduct.brand}
-                      name={firstProduct.name}
+                      image={firstProduct?.image ?? null}
+                      alt={firstProduct?.name ?? cat.name}
+                      brand={firstProduct?.brand}
+                      name={firstProduct?.name}
                       variant={variant}
                       className="w-full h-full"
                     />
-                  ) : (
-                    <div className={`w-full h-full bg-gradient-to-br ${toneMap[cat.tone]} flex items-center justify-center`}>
-                      <span className="cat-icon text-xl md:text-2xl">{cat.emoji}</span>
-                    </div>
-                  )}
-                </div>
-                <span className={`text-[11px] md:text-xs font-medium text-center transition-colors group-hover:text-violet ${cat.slug === 'sale' ? 'text-sale font-semibold' : 'text-navy'}`}>
-                  {cat.name}
-                </span>
-              </Link>
-            );
-          })}
+                  </div>
+                  <span className={`text-[10px] md:text-[11px] font-medium text-center transition-colors group-hover:text-violet leading-tight ${cat.slug === 'sale' ? 'text-sale font-semibold' : 'text-navy'}`}>
+                    {cat.name}
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

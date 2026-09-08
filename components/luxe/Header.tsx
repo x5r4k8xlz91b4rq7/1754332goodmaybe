@@ -47,7 +47,7 @@ export default function Header() {
             <span className="desktop-only">Curated. Verified. Exclusive.</span>
           </div>
           <div className="flex items-center gap-3 opacity-90">
-            <span className="desktop-only">DealVault Luxe</span>
+            <span className="desktop-only">Vanta Row Luxe</span>
             <span className="opacity-40 desktop-only">|</span>
             <span>Luxury Today. A Brighter Tomorrow.</span>
           </div>
@@ -62,7 +62,7 @@ export default function Header() {
               <Crown className="w-4.5 h-4.5 text-white" strokeWidth={2.5} />
             </div>
             <div className="leading-none">
-              <div className="font-display text-lg font-bold text-navy tracking-tight">DealVault Luxe</div>
+              <div className="font-display text-lg font-bold text-navy tracking-tight">Vanta Row Luxe</div>
               <div className="text-[9px] uppercase tracking-[0.15em] text-gray-400 mt-0.5">Curated Luxury</div>
             </div>
           </Link>
@@ -120,7 +120,7 @@ export default function Header() {
           {/* Right actions */}
           <div className="flex items-center gap-4 ml-auto">
             <button className="hidden md:flex items-center gap-1.5 text-sm font-medium text-navy hover:text-violet transition-colors">
-              <User className="w-4.5 h-4.5" />
+              <User className="w-4 h-4" />
               <span>Sign In</span>
             </button>
             <button className="relative text-navy hover:text-violet transition-colors">
