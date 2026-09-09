@@ -18,7 +18,7 @@ button { cursor: pointer; }
 .product-card .product-image { aspect-ratio: 1 / 1; }
 
 /* ===== HERO BANNER ===== */
-.hero-banner { position: relative; overflow: visible; background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 40%, #e8f0ff 100%); border-bottom: 1px solid #e7eaf0; }
+.hero-banner { position: relative; overflow: visible; background: url('/c86bc333-9389-44a9-a56f-ccabc21f8c7a.png') center center / cover no-repeat; border-bottom: 1px solid #e7eaf0; }
 .hero-banner-inner { position: relative; display: flex; align-items: stretch; min-height: 500px; padding: 24px 0 28px; gap: 1rem; }
 .hero-copy { flex: 0 0 42%; max-width: 42%; z-index: 5; }
 .hero-mascot-area { flex: 0 0 58%; max-width: 58%; position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: 999; pointer-events: none; }
