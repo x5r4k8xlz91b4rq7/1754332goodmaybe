@@ -21,10 +21,10 @@ button { cursor: pointer; }
 .hero-banner { position: relative; overflow: visible; background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 40%, #e8f0ff 100%); border-bottom: 1px solid #e7eaf0; }
 .hero-banner-inner { position: relative; display: flex; align-items: stretch; min-height: 380px; padding: 16px 0 20px; gap: 1rem; }
 .hero-copy { flex: 0 0 42%; max-width: 42%; z-index: 5; }
-.hero-mascot-area { flex: 0 0 58%; max-width: 58%; position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: 10; pointer-events: none; }
+.hero-mascot-area { flex: 0 0 58%; max-width: 58%; position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: 999; pointer-events: none; }
 .hero-mascot-stage { position: relative; width: 100%; min-height: 380px; }
 
-.mascot-image { position: absolute; inset: 0; z-index: 11; animation: mascot-image-float 5s ease-in-out infinite; will-change: transform; pointer-events: none; transform: scale(1.58) translate(-7%, 4%); object-position: 42% 58%; }
+.mascot-image { position: absolute; inset: 0; z-index: 1000; animation: mascot-image-float 5s ease-in-out infinite; will-change: transform; pointer-events: none; transform: scale(1.58) translate(-7%, 4%); object-position: 42% 58%; }
 @keyframes mascot-image-float { 0%, 100% { transform: scale(1.58) translate(-7%, 4%); } 50% { transform: scale(1.59) translate(-7%, 2%); } }
 
 .mascot-glow { position: absolute; width: 360px; height: 360px; left: 50%; top: 45%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(91,45,245,0.10) 0%, rgba(37,99,235,0.05) 40%, transparent 70%); z-index: 1; animation: glow-breathe 6s ease-in-out infinite; }
