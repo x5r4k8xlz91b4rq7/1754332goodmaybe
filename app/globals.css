@@ -24,10 +24,10 @@ button { cursor: pointer; }
 .hero-mascot-area { flex: 0 0 58%; max-width: 58%; position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: 999; pointer-events: none; }
 .hero-mascot-stage { position: relative; width: 100%; min-height: 380px; }
 
-.mascot-image { position: absolute; inset: 0; z-index: 1000; animation: mascot-image-float 5s ease-in-out infinite; will-change: transform; pointer-events: none; transform: scale(1.264) translate(-15%, 4%); object-position: 42% 58%; }
-@keyframes mascot-image-float { 0%, 100% { transform: scale(1.264) translate(-15%, 4%); } 50% { transform: scale(1.272) translate(-15%, 2%); } }
+.mascot-image { position: absolute; inset: 0; z-index: 1000; animation: mascot-image-float 5s ease-in-out infinite; will-change: transform; pointer-events: none; transform: scale(1.011) translate(-15%, 4%); object-position: 42% 58%; }
+@keyframes mascot-image-float { 0%, 100% { transform: scale(1.011) translate(-15%, 4%); } 50% { transform: scale(1.018) translate(-15%, 2%); } }
 
-.mascot-glow { position: absolute; width: 288px; height: 288px; left: 50%; top: 45%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(91,45,245,0.10) 0%, rgba(37,99,235,0.05) 40%, transparent 70%); z-index: 1; animation: glow-breathe 6s ease-in-out infinite; }
+.mascot-glow { position: absolute; width: 230px; height: 230px; left: 50%; top: 45%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(91,45,245,0.10) 0%, rgba(37,99,235,0.05) 40%, transparent 70%); z-index: 1; animation: glow-breathe 6s ease-in-out infinite; }
 
 .hero-ambient-1 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(91,45,245,0.07) 0%, transparent 60%); top: -150px; right: -100px; animation: drift-1 12s ease-in-out infinite; pointer-events: none; z-index: 1; }
 .hero-ambient-2 { position: absolute; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(10,22,48,0.05) 0%, transparent 60%); bottom: -150px; left: -80px; animation: drift-2 14s ease-in-out infinite; pointer-events: none; z-index: 1; }
@@ -123,7 +123,7 @@ button { cursor: pointer; }
 .luxe-banner-bg { background: linear-gradient(135deg, #0a1630 0%, #16224a 50%, #0a1630 100%); background-size: 200% 200%; animation: luxe-gradient 12s ease-in-out infinite; }
 @keyframes luxe-gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 .luxe-banner-card { min-height: 150px; }
-.luxe-banner-mascot { position: relative; width: 120px; height: 90px; flex-shrink: 0; }
+.luxe-banner-mascot { position: relative; width: 96px; height: 72px; flex-shrink: 0; }
 .luxe-banner-glow { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(91,45,245,0.15) 0%, transparent 60%); animation: glow-breathe 6s ease-in-out infinite; pointer-events: none; }
 .luxe-banner-border { position: absolute; inset: 0; padding: 1px; background: linear-gradient(135deg, rgba(91,45,245,0.4), transparent 30%, transparent 70%, rgba(37,99,235,0.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; animation: border-shimmer 5s ease-in-out infinite; }
 @keyframes border-shimmer { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
@@ -197,8 +197,8 @@ button { cursor: pointer; }
   .chart-area { opacity: 1 !important; }
 }
 
-@media (max-width: 1100px) { .brand-strip-inner { gap: 24px; } .luxe-banner-card .relative.flex { gap: 16px; } .luxe-banner-mascot { width: 96px; } }
-@media (max-width: 1024px) { .hero-banner-inner { flex-direction: column-reverse; min-height: auto; padding: 20px 0 28px; } .hero-copy { flex: 1; max-width: 100%; } .hero-mascot-area { flex: 1; max-width: 100%; width: 100%; position: relative; } .hero-mascot-stage { min-height: 300px; } .mascot-image { transform: scale(0.96) translate(-7%, 0); object-position: 50% 50%; } @keyframes mascot-image-float { 0%, 100% { transform: scale(0.96) translate(-7%, 0); } 50% { transform: scale(0.968) translate(-7%, -6px); } } }
+@media (max-width: 1100px) { .brand-strip-inner { gap: 24px; } .luxe-banner-card .relative.flex { gap: 16px; } .luxe-banner-mascot { width: 77px; } }
+@media (max-width: 1024px) { .hero-banner-inner { flex-direction: column-reverse; min-height: auto; padding: 20px 0 28px; } .hero-copy { flex: 1; max-width: 100%; } .hero-mascot-area { flex: 1; max-width: 100%; width: 100%; position: relative; } .hero-mascot-stage { min-height: 300px; } .mascot-image { transform: scale(0.768) translate(-7%, 0); object-position: 50% 50%; } @keyframes mascot-image-float { 0%, 100% { transform: scale(0.768) translate(-7%, 0); } 50% { transform: scale(0.774) translate(-7%, -6px); } } }
 @media (max-width: 900px) { .container-wide { width: min(100% - 32px, 720px); }.desktop-only { display: none !important; } }
-@media (max-width: 600px) { .brand-strip-inner { display: block; } .brand-strip-inner > p { margin-bottom: 12px; } .luxe-banner-card .relative.flex { flex-wrap: wrap; padding: 20px; } .luxe-banner-mascot { width: 80px; height: 64px; } .luxe-benefits-row { flex-basis: 100%; } .container-wide { width: calc(100% - 24px); }.section-space { padding: 24px 0; }.hero-mascot-stage { min-height: 240px; } .mascot-image { transform: scale(0.88) translate(-7%, 0); object-position: 50% 50%; } @keyframes mascot-image-float { 0%, 100% { transform: scale(0.88) translate(-7%, 0); } 50% { transform: scale(0.888) translate(-7%, -6px); } } .hero-art-copy { font-size: 9px; } .hero-arrow { width: 28px; height: 28px; } }
+@media (max-width: 600px) { .brand-strip-inner { display: block; } .brand-strip-inner > p { margin-bottom: 12px; } .luxe-banner-card .relative.flex { flex-wrap: wrap; padding: 20px; } .luxe-banner-mascot { width: 64px; height: 51px; } .luxe-benefits-row { flex-basis: 100%; } .container-wide { width: calc(100% - 24px); }.section-space { padding: 24px 0; }.hero-mascot-stage { min-height: 240px; } .mascot-image { transform: scale(0.704) translate(-7%, 0); object-position: 50% 50%; } @keyframes mascot-image-float { 0%, 100% { transform: scale(0.704) translate(-7%, 0); } 50% { transform: scale(0.71) translate(-7%, -6px); } } .hero-art-copy { font-size: 9px; } .hero-arrow { width: 28px; height: 28px; } }
 @layer base { * { @apply border-border; } }
