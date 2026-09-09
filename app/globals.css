@@ -35,17 +35,12 @@ button { cursor: pointer; }
 .hero-ambient-red { position: absolute; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(224,43,55,0.04) 0%, transparent 60%); bottom: 10%; right: 20%; animation: drift-1 8s ease-in-out infinite; pointer-events: none; z-index: 1; }
 
 .hero-cityline { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #c8d6e8 20%, #c8d6e8 80%, transparent); z-index: 1; }
+.hero-readability-gradient { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.96) 28%, rgba(248,250,255,0.82) 38%, rgba(248,250,255,0.45) 48%, rgba(248,250,255,0.10) 60%, rgba(255,255,255,0) 72%); }
 
 .hero-trust-item { display: flex; align-items: center; gap: 8px; }
 .hero-trust-item > div:last-child p { font-size: 12px; font-weight: 600; color: var(--navy); line-height: 1.2; }
 .hero-trust-item > div:last-child span { font-size: 10px; color: #8a94a6; display: block; line-height: 1.2; }
 .hero-trust-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(91,45,245,0.08); color: var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-
-.hero-art-copy { position: absolute; font-family: var(--font-display), Georgia, serif; font-size: 11px; font-weight: 700; color: rgba(10,22,48,0.55); letter-spacing: 0.04em; line-height: 1.3; z-index: 4; }
-.hero-art-copy span { color: var(--violet); }
-.hero-art-copy-top { top: 12px; left: 16px; }
-.hero-art-copy-bottom { bottom: 44px; right: 16px; text-align: right; }
-.hero-art-copy-bottom span { color: #2563eb; }
 
 .hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.7); backdrop-filter: blur(4px); border: 1px solid #d0d8e4; color: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 6; transition: background 0.2s; }
 .hero-arrow:hover { background: white; }

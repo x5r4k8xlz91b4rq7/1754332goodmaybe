@@ -60,6 +60,7 @@ export default function Hero() {
       <div className="hero-ambient-3" />
       <div className="hero-ambient-red" />
       <div className="hero-cityline" />
+      <div className="hero-readability-gradient" />
 
       <div className="container-wide hero-banner-inner">
         <div className="hero-copy">
@@ -116,8 +117,6 @@ export default function Hero() {
                 className="mascot-image object-contain"
               />
             </div>
-            <div className="hero-art-copy hero-art-copy-top">RARE PIECES<br /><span>BRIGHTER PEOPLE</span></div>
-            <div className="hero-art-copy hero-art-copy-bottom">MORE THAN DEALS.<br /><span>IT&apos;S A LIFESTYLE.</span></div>
             <button className="hero-arrow hero-arrow-left" aria-label="Previous hero slide"><ArrowLeft className="w-4 h-4" /></button>
             <button className="hero-arrow hero-arrow-right" aria-label="Next hero slide"><ArrowRight className="w-4 h-4" /></button>
             <div className="hero-dots" aria-label="Hero slides">
