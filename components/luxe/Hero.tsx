@@ -61,6 +61,14 @@ export default function Hero() {
       <div className="hero-ambient-red" />
       <div className="hero-cityline" />
       <div className="hero-readability-gradient" />
+      <Image
+        src="/assets/images/ChatGPT_Image_Sep_10,_2026,_09_19_24_AM.png"
+        alt=""
+        width={1536}
+        height={512}
+        className="hero-signature"
+        aria-hidden="true"
+      />
 
       <div className="container-wide hero-banner-inner">
         <div className="hero-copy">
