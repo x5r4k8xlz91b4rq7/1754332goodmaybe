@@ -18,7 +18,7 @@ button { cursor: pointer; }
 .product-card .product-image { aspect-ratio: 1 / 1; }
 
 /* ===== HERO BANNER ===== */
-.hero-banner { position: relative; overflow: visible; background: #000 url('/c86bc333-9389-44a9-a56f-ccabc21f8c7a.png') top center / 100% auto no-repeat; border-bottom: 1px solid #e7eaf0; }
+.hero-banner { position: relative; overflow: visible; background: #000 url('/brand/vanta-row-hero-city-bg.png') top center / 100% auto no-repeat; border-bottom: 1px solid #e7eaf0; }
 .hero-banner-inner { position: relative; display: flex; align-items: stretch; min-height: 620px; padding: 32px 0 36px; gap: 1rem; }
 .hero-copy { flex: 0 0 42%; max-width: 42%; z-index: 5; }
 .hero-mascot-area { flex: 0 0 58%; max-width: 58%; position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: 999; pointer-events: none; }
