@@ -20,8 +20,8 @@ button { cursor: pointer; }
 /* ===== HERO BANNER ===== */
 .hero-banner { position: relative; overflow: visible; background: #000 url('/files_7686201-2026-09-09T17-29-17-799Z-c86bc333-9389-44a9-a56f-ccabc21f8c7a.webp') top center / cover no-repeat; border-bottom: 1px solid #e7eaf0; }
 .hero-banner-inner { position: relative; display: flex; align-items: stretch; min-height: 620px; padding: 32px 0 36px; gap: 1rem; }
-.hero-copy { flex: 0 0 42%; max-width: 42%; z-index: 5; }
-.hero-mascot-area { flex: 0 0 58%; max-width: 58%; position: absolute; top: 0; right: 0; bottom: 0; width: 58%; z-index: 999; pointer-events: none; }
+.hero-copy { flex: 0 0 44%; max-width: 44%; z-index: 5; }
+.hero-mascot-area { flex: 0 0 56%; max-width: 56%; position: absolute; top: 0; right: 0; bottom: 0; width: 56%; z-index: 999; pointer-events: none; }
 .hero-mascot-stage { position: relative; width: 100%; min-height: 620px; }
 
 .mascot-image { position: absolute; inset: 0; z-index: 1000; animation: mascot-image-float 5s ease-in-out infinite; will-change: transform; pointer-events: none; transform: scale(1.011) translate(-15%, -1%); object-position: 42% 58%; }
@@ -38,9 +38,9 @@ button { cursor: pointer; }
 .hero-readability-gradient { position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.96) 28%, rgba(248,250,255,0.82) 38%, rgba(248,250,255,0.45) 48%, rgba(248,250,255,0.10) 60%, rgba(255,255,255,0) 72%); }
 
 .hero-trust-item { display: flex; align-items: center; gap: 8px; }
-.hero-trust-item > div:last-child p { font-size: 12px; font-weight: 600; color: var(--navy); line-height: 1.2; }
-.hero-trust-item > div:last-child span { font-size: 10px; color: #8a94a6; display: block; line-height: 1.2; }
-.hero-trust-icon { width: 28px; height: 28px; border-radius: 8px; background: rgba(91,45,245,0.08); color: var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.hero-trust-item > div:last-child p { font-size: 13px; font-weight: 600; color: var(--navy); line-height: 1.2; }
+.hero-trust-item > div:last-child span { font-size: 11px; color: #8a94a6; display: block; line-height: 1.2; }
+.hero-trust-icon { width: 30px; height: 30px; border-radius: 8px; background: rgba(91,45,245,0.08); color: var(--violet); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
 .hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.7); backdrop-filter: blur(4px); border: 1px solid #d0d8e4; color: var(--navy); display: flex; align-items: center; justify-content: center; z-index: 6; transition: background 0.2s; }
 .hero-arrow:hover { background: white; }

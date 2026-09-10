@@ -68,27 +68,27 @@ export default function Hero() {
             <Sparkles className="w-3 h-3" />
             Limited Edition Drops
           </div>
-          <h1 className="hero-enter hero-enter-2 font-display text-[38px] md:text-[44px] lg:text-[48px] font-bold text-navy mt-3 leading-[1.02] tracking-[-0.035em]">
+          <h1 className="hero-enter hero-enter-2 font-display text-[38px] md:text-[46px] lg:text-[56px] font-bold text-navy mt-4 leading-[1.02] tracking-[-0.035em]">
             Verified Deals on
             <br />
             Limited Edition Pieces
           </h1>
-          <p className="hero-enter hero-enter-3 text-[15px] text-[#526078] mt-3 max-w-[420px] leading-[1.35]">
+          <p className="hero-enter hero-enter-3 text-[16px] text-[#526078] mt-4 max-w-[440px] leading-[1.5]">
             Curated drops. Iconic watches. Exclusive sneakers.
             <br />
             Luxury brands. Same-day offers.
           </p>
-          <div className="hero-enter hero-enter-4 flex flex-wrap gap-3 mt-4">
-            <Link href="/drops" className="btn-luxe inline-flex items-center gap-2 h-10 px-5 rounded-lg text-white text-xs font-semibold">
+          <div className="hero-enter hero-enter-4 flex flex-wrap gap-3 mt-5">
+            <Link href="/drops" className="btn-luxe inline-flex items-center gap-2 h-11 px-6 rounded-lg text-white text-[13px] font-semibold">
               <span className="btn-shine" />
               Shop the Drops <ArrowRight className="w-3.5 h-3.5 btn-arrow" />
             </Link>
-            <Link href="/categories" className="inline-flex items-center gap-2 h-10 px-5 rounded-lg border border-[#17294a] text-navy text-xs font-semibold hover:bg-white/70 transition-colors">
+            <Link href="/categories" className="inline-flex items-center gap-2 h-11 px-6 rounded-lg border border-[#17294a] text-navy text-[13px] font-semibold hover:bg-white/70 transition-colors">
               Explore All Categories
             </Link>
           </div>
 
-          <div className="hero-enter hero-enter-5 flex flex-wrap gap-4 mt-5 pt-4 border-t border-[#dbe2ec]">
+          <div className="hero-enter hero-enter-5 flex flex-wrap gap-4 mt-6 pt-4 border-t border-[#dbe2ec]">
             <div className="hero-trust-item">
               <div className="hero-trust-icon"><ShieldCheck className="w-4 h-4" /></div>
               <div><p>100% Authentic</p><span>Verified products</span></div>
