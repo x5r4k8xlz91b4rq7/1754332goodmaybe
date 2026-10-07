@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
 import PlaceholderImage from './PlaceholderImage';
 
@@ -10,6 +11,8 @@ type ProductImageProps = {
   name?: string;
   className?: string;
   variant?: string;
+  sizes?: string;
+  priority?: boolean;
 };
 
 export default function ProductImage({
@@ -19,16 +22,22 @@ export default function ProductImage({
   name,
   className,
   variant,
+  sizes = '(max-width: 768px) 50vw, 25vw',
+  priority = false,
 }: ProductImageProps) {
-  if (image) {
+  const [errored, setErrored] = useState(false);
+
+  if (image && !errored) {
     return (
       <div className={`relative ${className ?? ''}`}>
         <Image
           src={image}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 50vw, 25vw"
+          sizes={sizes}
+          priority={priority}
           className="object-contain p-2"
+          onError={() => setErrored(true)}
         />
       </div>
     );

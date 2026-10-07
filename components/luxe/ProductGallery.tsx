@@ -6,10 +6,24 @@ import { Product } from '@/lib/products';
 import ProductImage from './ProductImage';
 
 export default function ProductGallery({ product }: { product: Product }) {
-  const galleryVariants = product.gallery.length > 0 ? product.gallery : ['trading-card-box'];
-  const variants = galleryVariants.slice(0, 4);
-  while (variants.length < 4) variants.push(variants[0]);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const realImages = product.gallery.filter((g) => g.startsWith('/catalog/'));
+  const placeholderVariants = product.gallery.filter((g) => !g.startsWith('/catalog/'));
+
+  const hasRealImages = realImages.length > 0;
+  const totalSlots = Math.max(realImages.length, 1) + (placeholderVariants.length > 0 ? 1 : 0);
+  const slots = Math.min(totalSlots, 4);
+
+  const getSlotImage = (index: number): string | null => {
+    if (index < realImages.length) return realImages[index];
+    return null;
+  };
+
+  const getSlotVariant = (index: number): string => {
+    if (index < realImages.length) return product.gallery[0];
+    return placeholderVariants[0] ?? 'trading-card-box';
+  };
 
   return (
     <div className="space-y-4 enter-from-left">
@@ -33,54 +47,63 @@ export default function ProductGallery({ product }: { product: Product }) {
             <ZoomIn className="w-4 h-4 text-navy" />
           </button>
         </div>
-        <button
-          onClick={() => setActiveIndex((i) => (i - 1 + variants.length) % variants.length)}
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors"
-        >
-          <ChevronLeft className="w-5 h-5 text-navy" />
-        </button>
-        <button
-          onClick={() => setActiveIndex((i) => (i + 1) % variants.length)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors"
-        >
-          <ChevronRight className="w-5 h-5 text-navy" />
-        </button>
+        {slots > 1 && (
+          <>
+            <button
+              onClick={() => setActiveIndex((i) => (i - 1 + slots) % slots)}
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5 text-navy" />
+            </button>
+            <button
+              onClick={() => setActiveIndex((i) => (i + 1) % slots)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-white transition-colors"
+            >
+              <ChevronRight className="w-5 h-5 text-navy" />
+            </button>
+          </>
+        )}
 
         {/* Image with zoom + spotlight */}
         <div className="gallery-main w-full h-full">
           <ProductImage
-            image={product.image}
+            image={getSlotImage(activeIndex)}
             alt={product.name}
             brand={product.brand}
             name={product.name}
-            variant={variants[activeIndex]}
+            variant={getSlotVariant(activeIndex)}
             className="w-full h-full"
+            sizes="(max-width: 768px) 100vw, 40vw"
+            priority
           />
           <div className="gallery-spotlight" />
         </div>
       </div>
 
       {/* Thumbnails */}
-      <div className="grid grid-cols-4 gap-3">
-        {variants.map((variant, i) => (
-          <button
-            key={i}
-            onClick={() => setActiveIndex(i)}
-            className={`aspect-square rounded-xl overflow-hidden border-2 transition-all duration-200 ${
-              activeIndex === i
-                ? 'border-violet ring-2 ring-violet/20'
-                : 'border-[#e7eaf0] hover:border-gray-300'
-            }`}
-          >
-            <ProductImage
-              image={product.image}
-              alt={product.name}
-              variant={variant}
-              className="w-full h-full"
-            />
-          </button>
-        ))}
-      </div>
+      {slots > 1 && (
+        <div className="grid grid-cols-4 gap-3">
+          {Array.from({ length: slots }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`aspect-square rounded-xl overflow-hidden border-2 transition-all duration-200 ${
+                activeIndex === i
+                  ? 'border-violet ring-2 ring-violet/20'
+                  : 'border-[#e7eaf0] hover:border-gray-300'
+              }`}
+            >
+              <ProductImage
+                image={getSlotImage(i)}
+                alt={product.name}
+                variant={getSlotVariant(i)}
+                className="w-full h-full"
+                sizes="15vw"
+              />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

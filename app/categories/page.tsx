@@ -9,6 +9,7 @@ import CartDrawer from '@/components/luxe/CartDrawer';
 import { categories, secondaryCategories, toneMap } from '@/lib/categories';
 import { getProductsByCategory, getNewArrivals, getSaleProducts } from '@/lib/products';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+import ProductImage from '@/components/luxe/ProductImage';
 
 export default function CategoriesPage() {
   const { ref, visible } = useScrollReveal();
@@ -48,8 +49,13 @@ export default function CategoriesPage() {
                 href={cat.href}
                 className="group rounded-2xl border border-[#e7eaf0] overflow-hidden hover:border-violet/30 transition-all duration-200 hover:shadow-lg"
               >
-                <div className={`h-40 bg-gradient-to-br ${toneMap[cat.tone]} flex items-center justify-center text-5xl`}>
-                  {cat.emoji}
+                <div className="h-40 bg-[#f5f6f8] relative overflow-hidden">
+                  <ProductImage
+                    image={cat.categoryImage}
+                    alt={cat.name}
+                    className="w-full h-full"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
                 <div className="p-5">
                   <h3 className="font-display text-lg font-bold text-navy group-hover:text-violet transition-colors">{cat.name}</h3>
@@ -75,8 +81,13 @@ export default function CategoriesPage() {
                   className={`group rounded-2xl border border-[#e7eaf0] overflow-hidden hover:border-violet/30 transition-all duration-200 hover:shadow-lg ${cat.slug === 'sale' ? 'border-sale/20' : ''}`}
                 >
                   <div className="flex items-center gap-4 p-5">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${toneMap[cat.tone]} flex items-center justify-center text-3xl shrink-0`}>
-                      {cat.emoji}
+                    <div className="w-16 h-16 rounded-2xl bg-[#f5f6f8] relative overflow-hidden shrink-0">
+                      <ProductImage
+                        image={cat.slug === 'new-arrivals' ? '/catalog/sneakers/nike-kobe-limited-performance-retro.jpg' : '/catalog/sneakers/jordan-4-retro-white-cement.jpg'}
+                        alt={cat.name}
+                        className="w-full h-full"
+                        sizes="64px"
+                      />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h3 className={`font-display text-lg font-bold group-hover:text-violet transition-colors ${cat.slug === 'sale' ? 'text-sale' : 'text-navy'}`}>{cat.name}</h3>

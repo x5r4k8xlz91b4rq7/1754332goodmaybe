@@ -64,6 +64,9 @@ export default function PlaceholderImage({
           {name}
         </p>
       )}
+      <p className="absolute top-1/2 left-0 right-0 text-center -translate-y-1/2 text-[9px] font-medium text-gray-400 px-3 uppercase tracking-wider opacity-60">
+        Official imagery coming soon
+      </p>
     </div>
   );
 }

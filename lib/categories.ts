@@ -6,20 +6,21 @@ export type CategoryInfo = {
   icon: string;
   tone: string;
   emoji: string;
+  categoryImage: string;
 };
 
 export const categories: CategoryInfo[] = [
-  { name: 'Trading Cards', slug: 'trading-cards', href: '/shop/trading-cards', description: 'Sealed boxes, special editions and limited releases for collectors.', icon: 'cards', tone: 'trading', emoji: '🃏' },
-  { name: 'Sneakers', slug: 'sneakers', href: '/shop/sneakers', description: 'Limited colourways, retros and high-demand releases.', icon: 'sneaker', tone: 'sneaker', emoji: '👟' },
-  { name: 'Apparel', slug: 'apparel', href: '/shop/apparel', description: 'Limited drops, collaborations and collector-grade streetwear.', icon: 'hoodie', tone: 'apparel', emoji: '👕' },
-  { name: 'Soccer', slug: 'soccer', href: '/shop/soccer', description: 'Special edition jerseys and collector-focused football releases.', icon: 'jersey', tone: 'soccer', emoji: '⚽' },
-  { name: 'Collectibles', slug: 'collectibles', href: '/shop/collectibles', description: 'Blind boxes, designer figures and hard-to-find collector pieces.', icon: 'blindbox', tone: 'collectibles', emoji: '🎁' },
-  { name: 'Watches', slug: 'watches', href: '/shop/watches', description: 'Limited collaboration watches and accessible collector timepieces.', icon: 'watch', tone: 'watches', emoji: '⌚' },
+  { name: 'Trading Cards', slug: 'trading-cards', href: '/shop/trading-cards', description: 'Sealed boxes, special editions and limited releases for collectors.', icon: 'cards', tone: 'trading', emoji: '🃏', categoryImage: '/catalog/trading-cards/pokemon-30th-celebration-elite-trainer-box.jpg' },
+  { name: 'Sneakers', slug: 'sneakers', href: '/shop/sneakers', description: 'Limited colourways, retros and high-demand releases.', icon: 'sneaker', tone: 'sneaker', emoji: '👟', categoryImage: '/catalog/sneakers/jordan-5-retro-wolf-grey-2026.jpg' },
+  { name: 'Apparel', slug: 'apparel', href: '/shop/apparel', description: 'Limited drops, collaborations and collector-grade streetwear.', icon: 'hoodie', tone: 'apparel', emoji: '👕', categoryImage: '/catalog/apparel/supreme-mm6-maison-margiela-box-logo-zip-up-hoodie-navy-ss26.jpg' },
+  { name: 'Soccer', slug: 'soccer', href: '/shop/soccer', description: 'Special edition jerseys and collector-focused football releases.', icon: 'jersey', tone: 'soccer', emoji: '⚽', categoryImage: '/catalog/soccer/nike-fc-barcelona-re-issue-2005-06-ronaldinho-10-home-jersey.jpg' },
+  { name: 'Collectibles', slug: 'collectibles', href: '/shop/collectibles', description: 'Blind boxes, designer figures and hard-to-find collector pieces.', icon: 'blindbox', tone: 'collectibles', emoji: '🎁', categoryImage: '/catalog/collectibles/popmart-hacipupu-gummy-bear-sealed-case.jpg' },
+  { name: 'Watches', slug: 'watches', href: '/shop/watches', description: 'Limited collaboration watches and accessible collector timepieces.', icon: 'watch', tone: 'watches', emoji: '⌚', categoryImage: '/catalog/watches/swatch-audemars-piguet-collaboration-watch.jpg' },
 ];
 
 export const secondaryCategories: CategoryInfo[] = [
-  { name: 'New Arrivals', slug: 'new-arrivals', href: '/new-arrivals', description: 'Fresh drops, new releases and recently added collector pieces.', icon: 'new', tone: 'new', emoji: '✨' },
-  { name: 'Sale', slug: 'sale', href: '/sale', description: 'Limited pieces at better prices. While they last.', icon: 'sale', tone: 'sale', emoji: '🏷️' },
+  { name: 'New Arrivals', slug: 'new-arrivals', href: '/new-arrivals', description: 'Fresh drops, new releases and recently added collector pieces.', icon: 'new', tone: 'new', emoji: '✨', categoryImage: '/catalog/sneakers/nike-kobe-limited-performance-retro.jpg' },
+  { name: 'Sale', slug: 'sale', href: '/sale', description: 'Limited pieces at better prices. While they last.', icon: 'sale', tone: 'sale', emoji: '🏷️', categoryImage: '/catalog/sneakers/jordan-4-retro-white-cement.jpg' },
 ];
 
 export const allNavLinks = [
