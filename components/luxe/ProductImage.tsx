@@ -13,6 +13,7 @@ type ProductImageProps = {
   variant?: string;
   sizes?: string;
   priority?: boolean;
+  minimal?: boolean;
 };
 
 export default function ProductImage({
@@ -24,6 +25,7 @@ export default function ProductImage({
   variant,
   sizes = '(max-width: 768px) 50vw, 25vw',
   priority = false,
+  minimal = false,
 }: ProductImageProps) {
   const [errored, setErrored] = useState(false);
 
@@ -49,6 +51,7 @@ export default function ProductImage({
       brand={brand}
       name={name}
       className={className}
+      minimal={minimal}
     />
   );
 }

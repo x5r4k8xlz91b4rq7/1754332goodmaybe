@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Search, Heart, ShoppingBag, Crown, Menu, X, User, ArrowRight } from 'lucide-react';
 import { useCart } from '@/lib/cart-context';
 import { allNavLinks } from '@/lib/categories';
-import { searchProducts, formatPrice } from '@/lib/products';
+import { searchProducts, formatPrice, placeholderVariant } from '@/lib/products';
 import ProductImage from './ProductImage';
 
 export default function Header() {
@@ -97,13 +97,13 @@ export default function Header() {
                     className="flex items-center gap-3 p-3 hover:bg-[#f6f8fb] transition-colors border-b border-[#eef1f6] last:border-0"
                   >
                     <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
-                      <ProductImage image={product.image} alt={product.name} brand={product.brand} name={product.name} variant={product.gallery[0] ?? 'trading-card-box'} className="w-full h-full" />
+                      <ProductImage image={product.image} alt={product.name} variant={placeholderVariant(product)} minimal className="w-full h-full" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-xs font-semibold text-navy truncate">{product.name}</p>
                       <p className="text-[11px] text-gray-400">{product.brand} · {product.category}</p>
                     </div>
-                    <span className="text-sm font-bold text-violet">{formatPrice(product.price)}</span>
+                    <span className="text-xs font-bold text-violet whitespace-nowrap">{formatPrice(product.price)}</span>
                   </Link>
                 ))}
                 <Link

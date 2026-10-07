@@ -9,9 +9,7 @@ import ProductBreadcrumb from '@/components/luxe/ProductBreadcrumb';
 import ProductGallery from '@/components/luxe/ProductGallery';
 import ProductInfo from '@/components/luxe/ProductInfo';
 import TrustPanel from '@/components/luxe/TrustPanel';
-import PriceHistory from '@/components/luxe/PriceHistory';
 import KeyHighlights from '@/components/luxe/KeyHighlights';
-import CompleteTheLook from '@/components/luxe/CompleteTheLook';
 import ProductGrid from '@/components/luxe/ProductGrid';
 import { getProduct, getSimilarProducts } from '@/lib/products';
 
@@ -49,20 +47,15 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             </div>
           </div>
 
-          {/* Price history + highlights */}
-          <div className="grid lg:grid-cols-2 gap-6 mt-8">
-            <PriceHistory />
-            {product.highlights && <KeyHighlights highlights={product.highlights} />}
-          </div>
-
-          {/* Complete the look */}
-          <div className="mt-8">
-            <CompleteTheLook />
-          </div>
+          {product.highlights && (
+            <div className="mt-8">
+              <KeyHighlights highlights={product.highlights} />
+            </div>
+          )}
 
           {/* Similar deals */}
           <div className="mt-12">
-            <ProductGrid title="Similar Deals" subtitle="You might also like these curated picks." products={similarProducts} />
+            <ProductGrid title="You Might Also Like" subtitle="More from the same corner of the culture." products={similarProducts} />
           </div>
         </div>
       </main>

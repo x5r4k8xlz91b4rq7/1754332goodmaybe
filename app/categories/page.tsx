@@ -6,7 +6,7 @@ import { CartProvider } from '@/lib/cart-context';
 import Header from '@/components/luxe/Header';
 import Footer from '@/components/luxe/Footer';
 import CartDrawer from '@/components/luxe/CartDrawer';
-import { categories, secondaryCategories, toneMap } from '@/lib/categories';
+import { categories, secondaryCategories, getCategoryProduct } from '@/lib/categories';
 import { getProductsByCategory, getNewArrivals, getSaleProducts } from '@/lib/products';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import ProductImage from '@/components/luxe/ProductImage';
@@ -38,12 +38,14 @@ export default function CategoriesPage() {
               Explore Collections
             </div>
             <h1 className="font-display text-3xl md:text-4xl font-bold text-navy mt-4">All Categories</h1>
-            <p className="text-base text-gray-500 mt-3 max-w-2xl">Browse every DealVault Luxe collection. From sealed trading card boxes to limited collaboration watches.</p>
+            <p className="text-base text-gray-500 mt-3 max-w-2xl">Browse every Vanta Row Luxe collection. From Travis Scott Jordans and sealed Pokémon to LABUBU and MoonSwatch.</p>
           </div>
 
           {/* Primary categories */}
           <div ref={ref} className={`grid md:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger ${visible ? 'revealed' : ''}`}>
-            {categories.map((cat) => (
+            {categories.map((cat) => {
+              const featured = getCategoryProduct(cat);
+              return (
               <Link
                 key={cat.slug}
                 href={cat.href}
@@ -51,11 +53,18 @@ export default function CategoriesPage() {
               >
                 <div className="h-40 bg-[#f5f6f8] relative overflow-hidden">
                   <ProductImage
-                    image={cat.categoryImage}
-                    alt={cat.name}
-                    className="w-full h-full"
+                    image={featured?.image ?? null}
+                    alt={featured?.name ?? cat.name}
+                    variant={cat.variant}
+                    minimal
+                    className="w-full h-full transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
+                  {featured && (
+                    <span className="absolute bottom-3 left-3 right-3 truncate text-[11px] font-medium text-gray-500">
+                      Featuring {featured.name}
+                    </span>
+                  )}
                 </div>
                 <div className="p-5">
                   <h3 className="font-display text-lg font-bold text-navy group-hover:text-violet transition-colors">{cat.name}</h3>
@@ -68,7 +77,8 @@ export default function CategoriesPage() {
                   </div>
                 </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
 
           {/* Secondary categories */}
@@ -83,8 +93,10 @@ export default function CategoriesPage() {
                   <div className="flex items-center gap-4 p-5">
                     <div className="w-16 h-16 rounded-2xl bg-[#f5f6f8] relative overflow-hidden shrink-0">
                       <ProductImage
-                        image={cat.slug === 'new-arrivals' ? '/catalog/sneakers/nike-kobe-limited-performance-retro.jpg' : '/catalog/sneakers/jordan-4-retro-white-cement.jpg'}
+                        image={getCategoryProduct(cat)?.image ?? null}
                         alt={cat.name}
+                        variant={cat.variant}
+                        minimal
                         className="w-full h-full"
                         sizes="64px"
                       />

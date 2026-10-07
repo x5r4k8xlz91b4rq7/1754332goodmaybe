@@ -7,8 +7,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-display' });
 
 export const metadata: Metadata = {
-  title: 'DealVault Luxe | Curated. Verified. Exclusive.',
-  description: 'Verified deals on limited edition pieces, luxury watches, sneakers, bags and more.',
+  title: 'Vanta Row Luxe | Culture, Curated.',
+  description: 'Sneakers, trading cards, streetwear, football kits, collectibles and collab watches people are actually looking for.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

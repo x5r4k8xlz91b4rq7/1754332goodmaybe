@@ -2,28 +2,22 @@
 
 import { useState } from 'react';
 import { ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Product } from '@/lib/products';
+import { Product, discountPercent, placeholderVariant } from '@/lib/products';
 import ProductImage from './ProductImage';
 
 export default function ProductGallery({ product }: { product: Product }) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   const realImages = product.gallery.filter((g) => g.startsWith('/catalog/'));
-  const placeholderVariants = product.gallery.filter((g) => !g.startsWith('/catalog/'));
-
-  const hasRealImages = realImages.length > 0;
-  const totalSlots = Math.max(realImages.length, 1) + (placeholderVariants.length > 0 ? 1 : 0);
-  const slots = Math.min(totalSlots, 4);
+  const slots = Math.min(Math.max(realImages.length, 1), 4);
 
   const getSlotImage = (index: number): string | null => {
     if (index < realImages.length) return realImages[index];
     return null;
   };
 
-  const getSlotVariant = (index: number): string => {
-    if (index < realImages.length) return product.gallery[0];
-    return placeholderVariants[0] ?? 'trading-card-box';
-  };
+  const getSlotVariant = (): string => placeholderVariant(product);
+  const discount = discountPercent(product);
 
   return (
     <div className="space-y-4 enter-from-left">
@@ -31,9 +25,9 @@ export default function ProductGallery({ product }: { product: Product }) {
       <div className="relative aspect-square rounded-2xl overflow-hidden border border-[#e7eaf0]">
         {/* Badges */}
         <div className="absolute top-4 left-4 z-10 flex gap-2 flex-wrap">
-          {product.compareAtPrice && product.compareAtPrice > product.price && (
+          {discount > 0 && (
             <span className="px-3 py-1.5 rounded-lg bg-sale text-white text-xs font-bold">
-              {Math.round(((product.compareAtPrice - product.price) / product.compareAtPrice) * 100)}% OFF
+              {discount}% OFF
             </span>
           )}
           <span className="px-3 py-1.5 rounded-lg bg-navy text-white text-xs font-bold">
@@ -71,7 +65,7 @@ export default function ProductGallery({ product }: { product: Product }) {
             alt={product.name}
             brand={product.brand}
             name={product.name}
-            variant={getSlotVariant(activeIndex)}
+            variant={getSlotVariant()}
             className="w-full h-full"
             sizes="(max-width: 768px) 100vw, 40vw"
             priority
@@ -96,7 +90,7 @@ export default function ProductGallery({ product }: { product: Product }) {
               <ProductImage
                 image={getSlotImage(i)}
                 alt={product.name}
-                variant={getSlotVariant(i)}
+                variant={getSlotVariant()}
                 className="w-full h-full"
                 sizes="15vw"
               />

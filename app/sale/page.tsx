@@ -14,8 +14,8 @@ export default function SalePage() {
       <Header />
       <main className="section-space">
         <CategoryPage
-          title="DealVault Sale"
-          description="Limited pieces. Better prices. While they last."
+          title="Sale"
+          description="Confirmed reductions on listed pieces appear here. Nothing is marked down right now."
           heroLabel="On Sale"
           products={products}
           breadcrumb={['Home', 'Sale']}

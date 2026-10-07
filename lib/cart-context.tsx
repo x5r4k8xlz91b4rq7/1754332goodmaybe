@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { Product } from './products';
+import { Product, isPurchasable } from './products';
 
 export type CartItem = {
   slug: string;
@@ -39,6 +39,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const closeCart = useCallback(() => setIsOpen(false), []);
 
   const addItem = useCallback((product: Product, size?: string, color?: string) => {
+    if (!isPurchasable(product) || product.price === null) return;
+    const price = product.price;
     setItems((prev) => {
       const existing = prev.find((i) => i.slug === product.slug && i.size === size);
       if (existing) {
@@ -53,7 +55,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         {
           slug: product.slug,
           name: product.name,
-          price: product.price,
+          price,
           image: product.image,
           size,
           color,

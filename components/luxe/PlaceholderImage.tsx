@@ -20,11 +20,13 @@ export default function PlaceholderImage({
   brand,
   name,
   className,
+  minimal = false,
 }: {
   variant: string;
   brand?: string;
   name?: string;
   className?: string;
+  minimal?: boolean;
 }) {
   const v = (variants[variant as Variant] ?? variants['trading-card-box']);
 
@@ -54,19 +56,21 @@ export default function PlaceholderImage({
       </svg>
 
       {/* Labels */}
-      {brand && (
+      {!minimal && brand && (
         <p className="absolute bottom-3 left-0 right-0 text-center text-[10px] font-bold uppercase tracking-wider text-gray-400 px-2 truncate">
           {brand}
         </p>
       )}
-      {name && (
+      {!minimal && name && (
         <p className="absolute top-3 left-0 right-0 text-center text-[9px] text-gray-300 px-3 truncate">
           {name}
         </p>
       )}
-      <p className="absolute top-1/2 left-0 right-0 text-center -translate-y-1/2 text-[9px] font-medium text-gray-400 px-3 uppercase tracking-wider opacity-60">
-        Official imagery coming soon
-      </p>
+      {!minimal && (
+        <p className="absolute bottom-8 left-0 right-0 text-center text-[9px] font-medium text-gray-400 px-3 uppercase tracking-wider opacity-70">
+          Official imagery coming soon
+        </p>
+      )}
     </div>
   );
 }

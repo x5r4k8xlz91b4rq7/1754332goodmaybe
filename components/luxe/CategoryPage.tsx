@@ -3,10 +3,10 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { ChevronRight, SlidersHorizontal, LayoutGrid, LayoutList } from 'lucide-react';
-import { Product } from '@/lib/products';
+import { Product, formatPrice, placeholderVariant } from '@/lib/products';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 import ProductCard from './ProductCard';
-import PlaceholderImage from './PlaceholderImage';
+import ProductImage from './ProductImage';
 
 type SortOption = 'featured' | 'price-low' | 'price-high' | 'newest';
 
@@ -15,44 +15,19 @@ type FilterConfig = {
   options: string[];
 };
 
-function getFilterConfig(categorySlug?: string): FilterConfig[] {
-  switch (categorySlug) {
-    case 'trading-cards':
-      return [
-        { label: 'Brand', options: ['Pokémon', 'One Piece Card Game', 'Panini'] },
-        { label: 'Product Type', options: ['Elite Trainer Box', 'Booster Bundle', 'Booster Box', 'Hobby Box'] },
-        { label: 'Status', options: ['Coming Soon', 'Available'] },
-      ];
-    case 'sneakers':
-      return [
-        { label: 'Brand', options: ['Jordan', 'adidas', 'Vans', 'Nike'] },
-        { label: 'Size', options: ['7', '8', '9', '10', '11', '12'] },
-        { label: 'Status', options: ['Coming Soon', 'Available'] },
-      ];
-    case 'apparel':
-    case 'soccer':
-      return [
-        { label: 'Brand', options: ['Supreme', 'Supreme x MM6 Maison Margiela', 'Jordan x Nigel Sylvester', 'Nike', 'Kith x adidas Messi', 'Cactus Jack x FC Barcelona', 'adidas'] },
-        { label: 'Size', options: ['S', 'M', 'L', 'XL', 'XXL'] },
-        { label: 'Status', options: ['Coming Soon', 'Available'] },
-      ];
-    case 'collectibles':
-      return [
-        { label: 'Brand', options: ['Pop Mart', 'Pop Mart x Disney', 'Jellycat'] },
-        { label: 'Collection', options: ['Hacipupu', 'Labubu', 'Crybaby', 'Skullpanda', 'Pop Mart x Disney', 'Jellycat'] },
-        { label: 'Status', options: ['Coming Soon', 'Available'] },
-      ];
-    case 'watches':
-      return [
-        { label: 'Brand', options: ['Swatch', 'Timex x MM6 Maison Margiela', 'Timex x Noah', 'Casio'] },
-        { label: 'Condition', options: ['New / Sealed'] },
-        { label: 'Status', options: ['Coming Soon', 'Available'] },
-      ];
-    default:
-      return [
-        { label: 'Status', options: ['Coming Soon', 'Available'] },
-      ];
+const unique = (values: (string | undefined)[]) =>
+  Array.from(new Set(values.filter((v): v is string => Boolean(v))));
+
+function getFilterConfig(products: Product[], categorySlug?: string): FilterConfig[] {
+  const configs: FilterConfig[] = [];
+  if (categorySlug) configs.push({ label: 'Line', options: unique(products.map((p) => p.subcategory)) });
+  if (categorySlug === 'trading-cards') configs.push({ label: 'Product Type', options: unique(products.map((p) => p.productType)) });
+  if (categorySlug === 'collectibles' || categorySlug === 'watches') configs.push({ label: 'Collection', options: unique(products.map((p) => p.collection)) });
+  if (categorySlug === 'sneakers' || categorySlug === 'apparel' || categorySlug === 'soccer') {
+    configs.push({ label: 'Size', options: unique(products.flatMap((p) => p.sizes ?? [])) });
   }
+  configs.push({ label: 'Status', options: unique(products.map((p) => p.status)) });
+  return configs.filter((c) => c.options.length > 0);
 }
 
 export default function CategoryPage({
@@ -76,7 +51,7 @@ export default function CategoryPage({
   const [showFilters, setShowFilters] = useState(false);
   const [activeFilters, setActiveFilters] = useState<Record<string, Set<string>>>({});
 
-  const filterConfigs = getFilterConfig(categorySlug);
+  const filterConfigs = useMemo(() => getFilterConfig(products, categorySlug), [products, categorySlug]);
 
   const toggleFilter = (group: string, value: string) => {
     setActiveFilters((prev) => {
@@ -94,12 +69,11 @@ export default function CategoryPage({
     Object.entries(activeFilters).forEach(([group, values]) => {
       if (values.size === 0) return;
       result = result.filter((p) => {
-        if (group === 'Brand') return values.has(p.brand);
+        if (group === 'Line') return values.has(p.subcategory ?? '');
         if (group === 'Status') return values.has(p.status);
         if (group === 'Size') return p.sizes?.some((s) => values.has(s));
         if (group === 'Product Type') return values.has(p.productType ?? '');
         if (group === 'Collection') return values.has(p.collection ?? '');
-        if (group === 'Condition') return values.has(p.condition ?? '');
         return true;
       });
     });
@@ -109,8 +83,8 @@ export default function CategoryPage({
   const sorted = useMemo(() => {
     const arr = [...filtered];
     switch (sortBy) {
-      case 'price-low': return arr.sort((a, b) => a.price - b.price);
-      case 'price-high': return arr.sort((a, b) => b.price - a.price);
+      case 'price-low': return arr.sort((a, b) => (a.price ?? Infinity) - (b.price ?? Infinity));
+      case 'price-high': return arr.sort((a, b) => (b.price ?? -Infinity) - (a.price ?? -Infinity));
       case 'newest': return arr.sort((a, b) => (b.newArrival ? 1 : 0) - (a.newArrival ? 1 : 0));
       default: return arr.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
     }
@@ -244,8 +218,6 @@ export default function CategoryPage({
 }
 
 function ProductListRow({ product }: { product: Product }) {
-  const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price;
-  const formatP = (n: number) => n === 0 ? 'Price coming soon' : `$${n.toLocaleString('en-US')}`;
 
   return (
     <Link
@@ -253,7 +225,7 @@ function ProductListRow({ product }: { product: Product }) {
       className="product-card flex gap-4 bg-white rounded-2xl border border-[#e7eaf0] overflow-hidden p-4"
     >
       <div className="w-28 h-28 rounded-xl overflow-hidden shrink-0">
-        <PlaceholderImage variant={product.gallery[0] ?? 'trading-card-box'} className="w-full h-full" />
+        <ProductImage image={product.image} alt={product.name} variant={placeholderVariant(product)} minimal className="w-full h-full" sizes="112px" />
       </div>
       <div className="flex-1 min-w-0 flex items-center">
         <div className="flex-1 min-w-0">
@@ -266,8 +238,7 @@ function ProductListRow({ product }: { product: Product }) {
           </div>
         </div>
         <div className="text-right shrink-0 ml-4">
-          <p className="text-lg font-bold text-navy">{formatP(product.price)}</p>
-          {hasDiscount && <p className="text-sm text-gray-400 line-through">{formatP(product.compareAtPrice!)}</p>}
+          <p className="text-lg font-bold text-navy">{formatPrice(product.price)}</p>
           <p className="text-[10px] text-violet mt-1 font-semibold">{product.status}</p>
         </div>
       </div>

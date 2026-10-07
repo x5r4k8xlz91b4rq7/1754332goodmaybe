@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { Heart, ArrowRight } from 'lucide-react';
+import { Heart, ArrowRight, Bell, Check } from 'lucide-react';
 import Link from 'next/link';
-import { Product, formatPrice } from '@/lib/products';
+import { Product, formatPrice, discountPercent as getDiscountPercent, isPurchasable, placeholderVariant } from '@/lib/products';
 import { useCart } from '@/lib/cart-context';
 import ProductImage from './ProductImage';
 
@@ -11,10 +11,9 @@ export default function ProductCard({ product }: { product: Product }) {
   const { toggleFavorite, isFavorite, addItem } = useCart();
   const [hovered, setHovered] = useState(false);
   const fav = isFavorite(product.slug);
-  const hasDiscount = product.compareAtPrice && product.compareAtPrice > product.price;
-  const discountPercent = hasDiscount
-    ? Math.round(((product.compareAtPrice! - product.price) / product.compareAtPrice!) * 100)
-    : 0;
+  const discountPercent = getDiscountPercent(product);
+  const hasDiscount = discountPercent > 0;
+  const purchasable = isPurchasable(product);
 
   return (
     <div
@@ -71,7 +70,7 @@ export default function ProductCard({ product }: { product: Product }) {
             alt={product.name}
             brand={product.brand}
             name={product.name}
-            variant={product.gallery[0] ?? 'trading-card-box'}
+            variant={placeholderVariant(product)}
             className="w-full h-full"
           />
         </div>
@@ -94,15 +93,25 @@ export default function ProductCard({ product }: { product: Product }) {
       {/* Quick add (appears on hover, desktop only) */}
       {hovered && (
         <div className="hidden md:block absolute bottom-0 left-0 right-0 p-3 bg-white border-t border-[#e7eaf0] animate-in fade-in slide-in-from-bottom duration-200">
+          {product.status === 'Sourcing' && (
+            <p className="text-[11px] text-gray-500 text-center mb-2">We&apos;re actively sourcing this piece.</p>
+          )}
           <button
             onClick={(e) => {
               e.preventDefault();
-              addItem(product);
+              if (purchasable) addItem(product);
+              else toggleFavorite(product.slug);
             }}
             className="btn-luxe w-full h-10 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2"
           >
             <span className="btn-shine" />
-            Notify Me <ArrowRight className="w-4 h-4 btn-arrow" />
+            {purchasable ? (
+              <>Add to Bag <ArrowRight className="w-4 h-4 btn-arrow" /></>
+            ) : fav ? (
+              <>On Your Watchlist <Check className="w-4 h-4" /></>
+            ) : (
+              <>Notify Me <Bell className="w-4 h-4" /></>
+            )}
           </button>
         </div>
       )}

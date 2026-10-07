@@ -1,3 +1,10 @@
+import { sneakers } from './catalog/sneakers';
+import { tradingCards } from './catalog/trading-cards';
+import { apparel } from './catalog/apparel';
+import { soccer } from './catalog/soccer';
+import { collectibles } from './catalog/collectibles';
+import { watches } from './catalog/watches';
+
 export type ProductCategory =
   | 'Trading Cards'
   | 'Sneakers'
@@ -5,6 +12,8 @@ export type ProductCategory =
   | 'Soccer'
   | 'Collectibles'
   | 'Watches';
+
+export type ProductStatus = 'Available' | 'Coming Soon' | 'Sourcing';
 
 export type Product = {
   id: string;
@@ -14,10 +23,10 @@ export type Product = {
   category: ProductCategory;
   subcategory?: string;
   description: string;
-  price: number;
+  price: number | null;
   compareAtPrice?: number;
   badge: string;
-  status: 'Coming Soon' | 'Available';
+  status: ProductStatus;
   featured: boolean;
   newArrival: boolean;
   highScarcity: boolean;
@@ -35,999 +44,66 @@ export type Product = {
   highlights?: { title: string; description: string; icon: string }[];
 };
 
-const placeholder = (variant: string) => variant;
-
-const categoryDir: Record<ProductCategory, string> = {
-  'Trading Cards': 'trading-cards',
-  'Sneakers': 'sneakers',
-  'Apparel': 'apparel',
-  'Soccer': 'soccer',
-  'Collectibles': 'collectibles',
-  'Watches': 'watches',
-};
-
-const img = (category: ProductCategory, slug: string) =>
-  `/catalog/${categoryDir[category]}/${slug}.jpg`;
-
 export const products: Product[] = [
-  // ===== TRADING CARDS =====
-  {
-    id: 'pokemon-30-center-etb',
-    slug: 'pokemon-30th-celebration-pokemon-center-elite-trainer-box',
-    brand: 'Pokémon',
-    name: '30th Celebration Pokémon Center Elite Trainer Box',
-    category: 'Trading Cards',
-    subcategory: 'Pokémon',
-    description: 'Pokémon Center exclusive Elite Trainer Box celebrating 30 years. Sealed, collector-grade.',
-    price: 0,
-    badge: 'POKÉMON CENTER',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Trading Cards', 'pokemon-30th-celebration-pokemon-center-elite-trainer-box'),
-    gallery: [img('Trading Cards', 'pokemon-30th-celebration-pokemon-center-elite-trainer-box'), placeholder('trading-card-box')],
-    tags: ['pokemon', 'celebration', 'elite trainer box', 'pokemon center', '30th anniversary', 'sealed'],
-    productType: 'Elite Trainer Box',
-    condition: 'Factory Sealed',
-    release: '30th Celebration',
-    options: [
-      { label: 'Condition', values: ['Factory Sealed'] },
-      { label: 'Release', values: ['30th Celebration'] },
-    ],
-    highlights: [
-      { title: 'Pokémon Center Exclusive', description: 'Only available through Pokémon Center.', icon: 'gem' },
-      { title: 'Factory Sealed', description: 'Unopened, collector-grade condition.', icon: 'shield' },
-      { title: '30th Anniversary', description: 'Celebrating three decades of Pokémon.', icon: 'star' },
-      { title: 'High Scarcity', description: 'Extremely limited allocation.', icon: 'layers' },
-    ],
-  },
-  {
-    id: 'pokemon-30-etb',
-    slug: 'pokemon-30th-celebration-elite-trainer-box',
-    brand: 'Pokémon',
-    name: '30th Celebration Elite Trainer Box',
-    category: 'Trading Cards',
-    subcategory: 'Pokémon',
-    description: '30th Anniversary Elite Trainer Box. Sealed and ready for the collector shelf.',
-    price: 0,
-    badge: '30TH ANNIVERSARY',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: false,
-    highScarcity: true,
-    trending: false,
-    image: img('Trading Cards', 'pokemon-30th-celebration-elite-trainer-box'),
-    gallery: [img('Trading Cards', 'pokemon-30th-celebration-elite-trainer-box'), placeholder('trading-card-box')],
-    tags: ['pokemon', 'celebration', 'elite trainer box', '30th anniversary', 'sealed'],
-    productType: 'Elite Trainer Box',
-    condition: 'Factory Sealed',
-    release: '30th Celebration',
-    options: [
-      { label: 'Condition', values: ['Factory Sealed'] },
-      { label: 'Release', values: ['30th Celebration'] },
-    ],
-    highlights: [
-      { title: '30th Anniversary Edition', description: 'Celebrating three decades.', icon: 'star' },
-      { title: 'Factory Sealed', description: 'Unopened, collector-grade.', icon: 'shield' },
-      { title: 'Elite Trainer Kit', description: 'Includes accessories and booster packs.', icon: 'layers' },
-      { title: 'Limited Availability', description: 'Produced in limited quantities.', icon: 'gem' },
-    ],
-  },
-  {
-    id: 'pokemon-30-booster-bundle',
-    slug: 'pokemon-30th-celebration-booster-bundle',
-    brand: 'Pokémon',
-    name: '30th Celebration Booster Bundle',
-    category: 'Trading Cards',
-    subcategory: 'Pokémon',
-    description: 'Booster bundle from the 30th Celebration series. A more accessible way to chase the anniversary set.',
-    price: 0,
-    badge: 'HIGH DEMAND',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: false,
-    trending: true,
-    image: img('Trading Cards', 'pokemon-30th-celebration-booster-bundle'),
-    gallery: [img('Trading Cards', 'pokemon-30th-celebration-booster-bundle'), placeholder('trading-card-pack')],
-    tags: ['pokemon', 'celebration', 'booster bundle', '30th anniversary'],
-    productType: 'Booster Bundle',
-    condition: 'Factory Sealed',
-    release: '30th Celebration',
-    options: [
-      { label: 'Condition', values: ['Factory Sealed'] },
-      { label: 'Release', values: ['30th Celebration'] },
-    ],
-    highlights: [
-      { title: 'Booster Bundle', description: 'Multiple packs in one bundle.', icon: 'layers' },
-      { title: 'Factory Sealed', description: 'Unopened condition.', icon: 'shield' },
-      { title: 'Anniversary Set', description: 'Part of the 30th Celebration line.', icon: 'star' },
-      { title: 'High Demand', description: 'Sought after by collectors.', icon: 'gem' },
-    ],
-  },
-  {
-    id: 'one-piece-op16',
-    slug: 'one-piece-the-time-of-battle-op16-booster-box',
-    brand: 'One Piece Card Game',
-    name: 'The Time of Battle OP-16 Booster Box',
-    category: 'Trading Cards',
-    subcategory: 'One Piece',
-    description: 'Sealed booster box from the latest One Piece Card Game set OP-16.',
-    price: 0,
-    badge: 'NEW RELEASE',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Trading Cards', 'one-piece-the-time-of-battle-op16-booster-box'),
-    gallery: [img('Trading Cards', 'one-piece-the-time-of-battle-op16-booster-box'), placeholder('booster-box')],
-    tags: ['one piece', 'op-16', 'booster box', 'sealed', 'new release'],
-    productType: 'Booster Box',
-    condition: 'Factory Sealed',
-    release: 'OP-16',
-    options: [
-      { label: 'Condition', values: ['Factory Sealed'] },
-      { label: 'Release', values: ['OP-16'] },
-    ],
-    highlights: [
-      { title: 'New Release', description: 'Latest OP-16 set.', icon: 'star' },
-      { title: 'Factory Sealed', description: 'Unopened condition.', icon: 'shield' },
-      { title: 'Booster Box', description: 'Contains multiple booster packs.', icon: 'layers' },
-      { title: 'High Demand', description: 'Limited allocation expected.', icon: 'gem' },
-    ],
-  },
-  {
-    id: 'panini-prizm-2026',
-    slug: 'panini-2026-prizm-fifa-world-cup-hobby-preferred-box',
-    brand: 'Panini',
-    name: '2026 Prizm FIFA World Cup Hobby Preferred Box',
-    category: 'Trading Cards',
-    subcategory: 'Sports',
-    description: 'Premium hobby box for the Prizm FIFA World Cup 2026 collection.',
-    price: 0,
-    badge: 'WORLD CUP',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Trading Cards', 'panini-2026-prizm-fifa-world-cup-hobby-preferred-box'),
-    gallery: [img('Trading Cards', 'panini-2026-prizm-fifa-world-cup-hobby-preferred-box'), placeholder('sports-card-box')],
-    tags: ['panini', 'prizm', 'fifa', 'world cup', '2026', 'hobby box', 'sports'],
-    productType: 'Hobby Box',
-    condition: 'Factory Sealed',
-    release: '2026 World Cup',
-    options: [
-      { label: 'Condition', values: ['Factory Sealed'] },
-      { label: 'Release', values: ['2026 World Cup'] },
-    ],
-    highlights: [
-      { title: 'World Cup Edition', description: '2026 FIFA World Cup Prizm.', icon: 'star' },
-      { title: 'Factory Sealed', description: 'Unopened hobby box.', icon: 'shield' },
-      { title: 'Premium Prizm', description: 'Chase rookies and parallels.', icon: 'gem' },
-      { title: 'Limited Allocation', description: 'High demand expected.', icon: 'layers' },
-    ],
-  },
-  {
-    id: 'pokemon-prismatic-etb',
-    slug: 'pokemon-prismatic-evolutions-elite-trainer-box',
-    brand: 'Pokémon',
-    name: 'Prismatic Evolutions Elite Trainer Box',
-    category: 'Trading Cards',
-    subcategory: 'Pokémon',
-    description: 'Prismatic Evolutions Elite Trainer Box. One of the most chased Pokémon TCG products in recent memory.',
-    price: 0,
-    badge: 'COLLECTOR PICK',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: true,
-    trending: true,
-    image: img('Trading Cards', 'pokemon-prismatic-evolutions-elite-trainer-box'),
-    gallery: [img('Trading Cards', 'pokemon-prismatic-evolutions-elite-trainer-box'), placeholder('trading-card-box')],
-    tags: ['pokemon', 'prismatic evolutions', 'elite trainer box', 'sealed'],
-    productType: 'Elite Trainer Box',
-    condition: 'Factory Sealed',
-    release: 'Prismatic Evolutions',
-    options: [
-      { label: 'Condition', values: ['Factory Sealed'] },
-      { label: 'Release', values: ['Prismatic Evolutions'] },
-    ],
-    highlights: [
-      { title: 'Collector Favorite', description: 'One of the most sought-after ETBs.', icon: 'gem' },
-      { title: 'Factory Sealed', description: 'Unopened, collector-grade.', icon: 'shield' },
-      { title: 'Prismatic Evolutions', description: 'Chase the prismatic holos.', icon: 'star' },
-      { title: 'High Scarcity', description: 'Extremely limited availability.', icon: 'layers' },
-    ],
-  },
-
-  // ===== SNEAKERS =====
-  {
-    id: 'jordan-5-wolf-grey',
-    slug: 'jordan-5-retro-wolf-grey-2026',
-    brand: 'Jordan',
-    name: 'Jordan 5 Retro Wolf Grey 2026',
-    category: 'Sneakers',
-    subcategory: 'Jordan',
-    description: 'The Wolf Grey colourway returns on the iconic Jordan 5 silhouette. A top seller for the season.',
-    price: 0,
-    badge: 'TOP SELLER',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Sneakers', 'jordan-5-retro-wolf-grey-2026'),
-    gallery: [img('Sneakers', 'jordan-5-retro-wolf-grey-2026'), placeholder('sneaker')],
-    tags: ['jordan', 'jordan 5', 'wolf grey', 'retro', '2026'],
-    colourway: 'Wolf Grey',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'] },
-    ],
-    highlights: [
-      { title: 'Top Seller', description: 'One of the season\'s most popular releases.', icon: 'star' },
-      { title: 'Iconic Silhouette', description: 'The classic Jordan 5 design.', icon: 'gem' },
-      { title: 'Premium Materials', description: 'Quality leather and nubuck upper.', icon: 'layers' },
-      { title: 'Wolf Grey Colourway', description: 'A clean, versatile look.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'jordan-11-gamma-blue',
-    slug: 'jordan-11-retro-gamma-blue',
-    brand: 'Jordan',
-    name: 'Jordan 11 Retro Gamma Blue',
-    category: 'Sneakers',
-    subcategory: 'Jordan',
-    description: 'Gamma Blue on the Jordan 11. A high-demand colourway on one of the most beloved silhouettes.',
-    price: 0,
-    badge: 'HIGH DEMAND',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Sneakers', 'jordan-11-retro-gamma-blue'),
-    gallery: [img('Sneakers', 'jordan-11-retro-gamma-blue'), placeholder('sneaker')],
-    tags: ['jordan', 'jordan 11', 'gamma blue', 'retro'],
-    colourway: 'Gamma Blue',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'] },
-    ],
-    highlights: [
-      { title: 'High Demand', description: 'Extremely sought release.', icon: 'gem' },
-      { title: 'Iconic Silhouette', description: 'The legendary Jordan 11.', icon: 'star' },
-      { title: 'Premium Materials', description: 'Patent leather and mesh upper.', icon: 'layers' },
-      { title: 'Gamma Blue', description: 'A bold, statement colourway.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'jordan-4-black-cat',
-    slug: 'jordan-4-retro-black-cat',
-    brand: 'Jordan',
-    name: 'Jordan 4 Retro Black Cat',
-    category: 'Sneakers',
-    subcategory: 'Jordan',
-    description: 'The Black Cat returns on the Jordan 4. Stealthy, coveted, and endlessly versatile.',
-    price: 0,
-    badge: 'COVETED',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: true,
-    trending: true,
-    image: img('Sneakers', 'jordan-4-retro-black-cat'),
-    gallery: [img('Sneakers', 'jordan-4-retro-black-cat'), placeholder('sneaker')],
-    tags: ['jordan', 'jordan 4', 'black cat', 'retro'],
-    colourway: 'Black Cat',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'] },
-    ],
-    highlights: [
-      { title: 'Coveted Release', description: 'One of the most chased Jordan 4s.', icon: 'gem' },
-      { title: 'All-Black Colourway', description: 'Stealthy and versatile.', icon: 'shield' },
-      { title: 'Premium Materials', description: 'Quality leather upper.', icon: 'layers' },
-      { title: 'Iconic Silhouette', description: 'The classic Jordan 4 design.', icon: 'star' },
-    ],
-  },
-  {
-    id: 'jordan-4-white-cement',
-    slug: 'jordan-4-retro-white-cement',
-    brand: 'Jordan',
-    name: 'Jordan 4 Retro White Cement',
-    category: 'Sneakers',
-    subcategory: 'Jordan',
-    description: 'White Cement on the Jordan 4. A collector pick that never goes out of style.',
-    price: 0,
-    badge: 'COLLECTOR PICK',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: false,
-    trending: false,
-    image: img('Sneakers', 'jordan-4-retro-white-cement'),
-    gallery: [img('Sneakers', 'jordan-4-retro-white-cement'), placeholder('sneaker')],
-    tags: ['jordan', 'jordan 4', 'white cement', 'retro'],
-    colourway: 'White Cement',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'] },
-    ],
-    highlights: [
-      { title: 'Collector Pick', description: 'A timeless colourway.', icon: 'gem' },
-      { title: 'Iconic Silhouette', description: 'The classic Jordan 4 design.', icon: 'star' },
-      { title: 'Premium Materials', description: 'Quality leather upper.', icon: 'layers' },
-      { title: 'White Cement', description: 'A clean, classic look.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'jordan-4-nigel-sylvester',
-    slug: 'jordan-4-nigel-sylvester-brick-after-brick',
-    brand: 'Jordan',
-    name: 'Jordan 4 Nigel Sylvester Brick After Brick',
-    category: 'Sneakers',
-    subcategory: 'Jordan',
-    description: 'Nigel Sylvester\'s collaboration on the Jordan 4. A limited drop inspired by BMX culture.',
-    price: 0,
-    badge: 'LIMITED DROP',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Sneakers', 'jordan-4-nigel-sylvester-brick-after-brick'),
-    gallery: [img('Sneakers', 'jordan-4-nigel-sylvester-brick-after-brick'), placeholder('sneaker')],
-    tags: ['jordan', 'jordan 4', 'nigel sylvester', 'brick after brick', 'collaboration'],
-    colourway: 'Brick After Brick',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'] },
-    ],
-    highlights: [
-      { title: 'Limited Drop', description: 'Restricted quantities.', icon: 'gem' },
-      { title: 'BMX Collaboration', description: 'Designed with Nigel Sylvester.', icon: 'star' },
-      { title: 'Premium Materials', description: 'Quality leather and suede.', icon: 'layers' },
-      { title: 'High Scarcity', description: 'Extremely limited availability.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'adidas-bad-bunny-badbo',
-    slug: 'adidas-badbunny-badbo-10-resilience',
-    brand: 'adidas',
-    name: 'BadBo 1.0 Bad Bunny Resilience',
-    category: 'Sneakers',
-    subcategory: 'adidas',
-    description: 'Bad Bunny\'s BadBo 1.0 in the Resilience colourway. A breakout release from the collaboration.',
-    price: 0,
-    badge: 'BREAKOUT RELEASE',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Sneakers', 'adidas-badbunny-badbo-10-resilience'),
-    gallery: [img('Sneakers', 'adidas-badbunny-badbo-10-resilience'), placeholder('sneaker')],
-    tags: ['adidas', 'bad bunny', 'badbo', 'resilience', 'collaboration'],
-    colourway: 'Resilience',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'] },
-    ],
-    highlights: [
-      { title: 'Breakout Release', description: 'A standout from the Bad Bunny line.', icon: 'star' },
-      { title: 'Collaboration', description: 'Designed with Bad Bunny.', icon: 'gem' },
-      { title: 'Premium Materials', description: 'Quality suede and mesh upper.', icon: 'layers' },
-      { title: 'Resilience Colourway', description: 'A unique, bold look.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'vans-lx-old-skool-36',
-    slug: 'vans-lx-old-skool-36-pearlized-pack-black-navy',
-    brand: 'Vans',
-    name: 'LX Old Skool 36 Pearlized Pack Black Navy',
-    category: 'Sneakers',
-    subcategory: 'Vans',
-    description: 'The LX Old Skool 36 from the Pearlized Pack. A breakout release with a premium pearlized finish.',
-    price: 0,
-    badge: 'BREAKOUT RELEASE',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: false,
-    trending: false,
-    image: img('Sneakers', 'vans-lx-old-skool-36-pearlized-pack-black-navy'),
-    gallery: [img('Sneakers', 'vans-lx-old-skool-36-pearlized-pack-black-navy'), placeholder('sneaker')],
-    tags: ['vans', 'old skool', 'lx', 'pearlized', 'black navy'],
-    colourway: 'Black Navy',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12'] },
-    ],
-    highlights: [
-      { title: 'Breakout Release', description: 'A standout from the LX line.', icon: 'star' },
-      { title: 'Pearlized Finish', description: 'Premium pearlized upper.', icon: 'gem' },
-      { title: 'LX Construction', description: 'Elevated materials and build.', icon: 'layers' },
-      { title: 'Black Navy', description: 'A versatile colourway.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'nike-kobe-limited-performance-retro',
-    slug: 'nike-kobe-limited-performance-retro',
-    brand: 'Nike',
-    name: 'Kobe Limited Performance Retro',
-    category: 'Sneakers',
-    subcategory: 'Nike',
-    description: 'A limited retro of the Kobe performance line. High demand and limited availability.',
-    price: 0,
-    badge: 'HIGH DEMAND',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Sneakers', 'nike-kobe-limited-performance-retro'),
-    gallery: [img('Sneakers', 'nike-kobe-limited-performance-retro'), placeholder('sneaker')],
-    tags: ['nike', 'kobe', 'performance', 'retro', 'limited'],
-    colourway: 'Limited Retro',
-    sizes: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12', '13'],
-    options: [
-      { label: 'Size', values: ['7', '7.5', '8', '8.5', '9', '9.5', '10', '10.5', '11', '12', '13'] },
-    ],
-    highlights: [
-      { title: 'High Demand', description: 'Extremely sought release.', icon: 'gem' },
-      { title: 'Performance Design', description: 'Built for the court.', icon: 'star' },
-      { title: 'Premium Materials', description: 'Lightweight performance upper.', icon: 'layers' },
-      { title: 'Limited Release', description: 'Restricted quantities.', icon: 'shield' },
-    ],
-  },
-
-  // ===== APPAREL =====
-  {
-    id: 'supreme-mm6-box-logo-zip-up',
-    slug: 'supreme-mm6-maison-margiela-box-logo-zip-up-hoodie-navy-ss26',
-    brand: 'Supreme x MM6 Maison Margiela',
-    name: 'Box Logo Zip Up Hoodie Navy SS26',
-    category: 'Apparel',
-    subcategory: 'Supreme',
-    description: 'The Supreme x MM6 Maison Margiela Box Logo Zip Up Hoodie in Navy for SS26. The #1 apparel drop of the season.',
-    price: 0,
-    badge: '#1 APPAREL DROP',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Apparel', 'supreme-mm6-maison-margiela-box-logo-zip-up-hoodie-navy-ss26'),
-    gallery: [img('Apparel', 'supreme-mm6-maison-margiela-box-logo-zip-up-hoodie-navy-ss26'), placeholder('hoodie')],
-    tags: ['supreme', 'mm6', 'maison margiela', 'box logo', 'hoodie', 'navy', 'ss26', 'collaboration'],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    options: [
-      { label: 'Size', values: ['S', 'M', 'L', 'XL', 'XXL'] },
-    ],
-    highlights: [
-      { title: '#1 Apparel Drop', description: 'The most anticipated apparel release of the season.', icon: 'star' },
-      { title: 'Supreme x MM6 Collaboration', description: 'A landmark partnership.', icon: 'gem' },
-      { title: 'Premium Construction', description: 'Heavyweight cotton zip-up.', icon: 'layers' },
-      { title: 'Box Logo', description: 'The iconic Supreme Box Logo.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'jordan-nigel-sylvester-bike-air-jersey',
-    slug: 'jordan-nigel-sylvester-bike-air-jersey-sail',
-    brand: 'Jordan x Nigel Sylvester',
-    name: 'BIKE AIR Jersey Sail',
-    category: 'Apparel',
-    subcategory: 'Jordan',
-    description: 'The Jordan x Nigel Sylvester BIKE AIR Jersey in Sail. A record release inspired by BMX culture.',
-    price: 0,
-    badge: 'RECORD RELEASE',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Apparel', 'jordan-nigel-sylvester-bike-air-jersey-sail'),
-    gallery: [img('Apparel', 'jordan-nigel-sylvester-bike-air-jersey-sail'), placeholder('jersey')],
-    tags: ['jordan', 'nigel sylvester', 'bike air', 'jersey', 'sail', 'collaboration'],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    options: [
-      { label: 'Size', values: ['S', 'M', 'L', 'XL', 'XXL'] },
-    ],
-    highlights: [
-      { title: 'Record Release', description: 'A record-setting collaboration drop.', icon: 'star' },
-      { title: 'BMX Inspired', description: 'Designed with Nigel Sylvester.', icon: 'gem' },
-      { title: 'Premium Material', description: 'Quality construction and fit.', icon: 'layers' },
-      { title: 'Sail Colourway', description: 'A clean, versatile look.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'supreme-box-logo-limited-release',
-    slug: 'supreme-box-logo-limited-release',
-    brand: 'Supreme',
-    name: 'Box Logo Limited Release',
-    category: 'Apparel',
-    subcategory: 'Supreme',
-    description: 'The iconic Supreme Box Logo in a limited release. A streetwear staple.',
-    price: 0,
-    badge: 'BOX LOGO',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: true,
-    trending: false,
-    image: img('Apparel', 'supreme-box-logo-limited-release'),
-    gallery: [img('Apparel', 'supreme-box-logo-limited-release'), placeholder('hoodie')],
-    tags: ['supreme', 'box logo', 'limited', 'streetwear'],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    options: [
-      { label: 'Size', values: ['S', 'M', 'L', 'XL', 'XXL'] },
-    ],
-    highlights: [
-      { title: 'Box Logo', description: 'The iconic Supreme Box Logo.', icon: 'gem' },
-      { title: 'Limited Release', description: 'Produced in restricted quantities.', icon: 'star' },
-      { title: 'Premium Quality', description: 'Heavyweight cotton construction.', icon: 'layers' },
-      { title: 'Streetwear Staple', description: 'A collector wardrobe essential.', icon: 'shield' },
-    ],
-  },
-
-  // ===== SOCCER =====
-  {
-    id: 'nike-barcelona-ronaldinho-05-06',
-    slug: 'nike-fc-barcelona-re-issue-2005-06-ronaldinho-10-home-jersey',
-    brand: 'Nike',
-    name: 'FC Barcelona Re-Issue 2005/06 Ronaldinho #10 Home Jersey',
-    category: 'Soccer',
-    subcategory: 'FC Barcelona',
-    description: 'A re-issue of the iconic 2005/06 FC Barcelona home jersey with Ronaldinho #10. A piece of football history.',
-    price: 0,
-    badge: 'ICONIC',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Soccer', 'nike-fc-barcelona-re-issue-2005-06-ronaldinho-10-home-jersey'),
-    gallery: [img('Soccer', 'nike-fc-barcelona-re-issue-2005-06-ronaldinho-10-home-jersey'), placeholder('jersey')],
-    tags: ['nike', 'fc barcelona', 'ronaldinho', 're-issue', '2005', 'home jersey', 'iconic'],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    options: [
-      { label: 'Size', values: ['S', 'M', 'L', 'XL', 'XXL'] },
-    ],
-    highlights: [
-      { title: 'Iconic Re-Issue', description: 'The legendary 2005/06 home kit.', icon: 'star' },
-      { title: 'Ronaldinho #10', description: 'Worn by the magician himself.', icon: 'gem' },
-      { title: 'Premium Material', description: 'Quality construction and fit.', icon: 'layers' },
-      { title: 'Collector Focus', description: 'A must-have for football fans.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'kith-adidas-messi-tee',
-    slug: 'kith-adidas-messi-football-graphic-tee-black',
-    brand: 'Kith x adidas Messi',
-    name: 'Football Graphic Tee Black',
-    category: 'Soccer',
-    subcategory: 'Kith',
-    description: 'The Kith x adidas Messi Football Graphic Tee in Black. Part of the Messi Collection.',
-    price: 0,
-    badge: 'MESSI COLLECTION',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Soccer', 'kith-adidas-messi-football-graphic-tee-black'),
-    gallery: [img('Soccer', 'kith-adidas-messi-football-graphic-tee-black'), placeholder('jersey')],
-    tags: ['kith', 'adidas', 'messi', 'football', 'graphic tee', 'black', 'collaboration'],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    options: [
-      { label: 'Size', values: ['S', 'M', 'L', 'XL', 'XXL'] },
-    ],
-    highlights: [
-      { title: 'Messi Collection', description: 'Part of the Kith x adidas Messi line.', icon: 'star' },
-      { title: 'Collaboration', description: 'Kith x adidas partnership.', icon: 'gem' },
-      { title: 'Premium Material', description: 'Quality cotton construction.', icon: 'layers' },
-      { title: 'Graphic Tee', description: 'A bold, wearable design.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'cactus-jack-barcelona-jersey',
-    slug: 'cactus-jack-fc-barcelona-limited-edition-jersey',
-    brand: 'Cactus Jack x FC Barcelona',
-    name: 'Limited Edition Jersey',
-    category: 'Soccer',
-    subcategory: 'FC Barcelona',
-    description: 'The Cactus Jack x FC Barcelona limited edition jersey. A sold-out culture collaboration.',
-    price: 0,
-    badge: 'SOLD-OUT CULTURE',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: false,
-    highScarcity: true,
-    trending: true,
-    image: img('Soccer', 'cactus-jack-fc-barcelona-limited-edition-jersey'),
-    gallery: [img('Soccer', 'cactus-jack-fc-barcelona-limited-edition-jersey'), placeholder('jersey')],
-    tags: ['cactus jack', 'travis scott', 'fc barcelona', 'limited edition', 'jersey', 'collaboration'],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    options: [
-      { label: 'Size', values: ['S', 'M', 'L', 'XL', 'XXL'] },
-    ],
-    highlights: [
-      { title: 'Sold-Out Culture', description: 'One of the most hyped drops of the year.', icon: 'star' },
-      { title: 'Cactus Jack Collaboration', description: 'Travis Scott x FC Barcelona.', icon: 'gem' },
-      { title: 'Premium Material', description: 'Quality construction and fit.', icon: 'layers' },
-      { title: 'High Scarcity', description: 'Extremely limited availability.', icon: 'shield' },
-    ],
-  },
-  {
-    id: 'adidas-mexico-national-jersey',
-    slug: 'adidas-limited-mexico-national-team-jersey',
-    brand: 'adidas',
-    name: 'Limited Mexico National Team Jersey',
-    category: 'Soccer',
-    subcategory: 'Mexico',
-    description: 'A limited edition Mexico National Team jersey from adidas. Built for the World Cup stage.',
-    price: 0,
-    badge: 'WORLD CUP',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: false,
-    trending: false,
-    image: img('Soccer', 'adidas-limited-mexico-national-team-jersey'),
-    gallery: [img('Soccer', 'adidas-limited-mexico-national-team-jersey'), placeholder('jersey')],
-    tags: ['adidas', 'mexico', 'national team', 'jersey', 'world cup', 'limited'],
-    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
-    options: [
-      { label: 'Size', values: ['S', 'M', 'L', 'XL', 'XXL'] },
-    ],
-    highlights: [
-      { title: 'World Cup Edition', description: 'Built for the 2026 World Cup.', icon: 'star' },
-      { title: 'Limited Edition', description: 'Produced in restricted quantities.', icon: 'gem' },
-      { title: 'Premium Material', description: 'Quality construction and fit.', icon: 'layers' },
-      { title: 'Collector Focus', description: 'A must-have for El Tri fans.', icon: 'shield' },
-    ],
-  },
-
-  // ===== COLLECTIBLES =====
-  {
-    id: 'popmart-hacipupu-gummy-bear',
-    slug: 'popmart-hacipupu-gummy-bear-sealed-case',
-    brand: 'Pop Mart',
-    name: 'Hacipupu Gummy Bear Sealed Case',
-    category: 'Collectibles',
-    subcategory: 'Pop Mart',
-    description: 'A sealed case of Pop Mart Hacipupu Gummy Bear figures. One of the most sought-after blind box series.',
-    price: 0,
-    badge: 'SEALED CASE',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Collectibles', 'popmart-hacipupu-gummy-bear-sealed-case'),
-    gallery: [img('Collectibles', 'popmart-hacipupu-gummy-bear-sealed-case'), placeholder('blind-box-case')],
-    tags: ['pop mart', 'hacipupu', 'gummy bear', 'sealed case', 'blind box'],
-    collection: 'Hacipupu',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Case Size', values: ['Full Case'] },
-    ],
-    highlights: [
-      { title: 'Sealed Case', description: 'Unopened full case.', icon: 'shield' },
-      { title: 'Highly Sought', description: 'One of the most chased Pop Mart series.', icon: 'gem' },
-      { title: 'Blind Box Format', description: 'Chase variants inside.', icon: 'layers' },
-      { title: 'Collector Favorite', description: 'A standout in any collection.', icon: 'star' },
-    ],
-  },
-  {
-    id: 'popmart-labubu-1am',
-    slug: 'popmart-labubu-1am-sealed-case',
-    brand: 'Pop Mart',
-    name: 'Labubu 1:00 A.M. Sealed Case',
-    category: 'Collectibles',
-    subcategory: 'Pop Mart',
-    description: 'A sealed case of Pop Mart Labubu 1:00 A.M. figures. A collector pick from the Labubu series.',
-    price: 0,
-    badge: 'COLLECTOR PICK',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Collectibles', 'popmart-labubu-1am-sealed-case'),
-    gallery: [img('Collectibles', 'popmart-labubu-1am-sealed-case'), placeholder('blind-box-case')],
-    tags: ['pop mart', 'labubu', '1am', 'sealed case', 'blind box'],
-    collection: 'Labubu',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Case Size', values: ['Full Case'] },
-    ],
-    highlights: [
-      { title: 'Collector Pick', description: 'A curated favorite from the Labubu line.', icon: 'gem' },
-      { title: 'Sealed Case', description: 'Unopened full case.', icon: 'shield' },
-      { title: 'Blind Box Format', description: 'Chase figures inside.', icon: 'layers' },
-      { title: 'Trending Series', description: 'One of Pop Mart\'s most popular lines.', icon: 'star' },
-    ],
-  },
-  {
-    id: 'popmart-crybaby-limited',
-    slug: 'popmart-crybaby-limited-sealed-case',
-    brand: 'Pop Mart',
-    name: 'Crybaby Limited Sealed Case',
-    category: 'Collectibles',
-    subcategory: 'Pop Mart',
-    description: 'A sealed case of limited Pop Mart Crybaby figures.',
-    price: 0,
-    badge: 'LIMITED',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: false,
-    trending: false,
-    image: img('Collectibles', 'popmart-crybaby-limited-sealed-case'),
-    gallery: [img('Collectibles', 'popmart-crybaby-limited-sealed-case'), placeholder('blind-box-case')],
-    tags: ['pop mart', 'crybaby', 'limited', 'sealed case', 'blind box'],
-    collection: 'Crybaby',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Case Size', values: ['Full Case'] },
-    ],
-    highlights: [
-      { title: 'Limited Release', description: 'Produced in limited quantities.', icon: 'gem' },
-      { title: 'Sealed Case', description: 'Unopened full case.', icon: 'shield' },
-      { title: 'Blind Box Format', description: 'Chase variants inside.', icon: 'layers' },
-      { title: 'Collector Favorite', description: 'Highly sought series.', icon: 'star' },
-    ],
-  },
-  {
-    id: 'popmart-skullpanda-special',
-    slug: 'popmart-skullpanda-special-edition-sealed-case',
-    brand: 'Pop Mart',
-    name: 'Skullpanda Special Edition Sealed Case',
-    category: 'Collectibles',
-    subcategory: 'Pop Mart',
-    description: 'A sealed case of Pop Mart Skullpanda Special Edition figures.',
-    price: 0,
-    badge: 'LIMITED',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: true,
-    trending: false,
-    image: img('Collectibles', 'popmart-skullpanda-special-edition-sealed-case'),
-    gallery: [img('Collectibles', 'popmart-skullpanda-special-edition-sealed-case'), placeholder('blind-box-case')],
-    tags: ['pop mart', 'skullpanda', 'special edition', 'sealed case', 'blind box'],
-    collection: 'Skullpanda',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Case Size', values: ['Full Case'] },
-    ],
-    highlights: [
-      { title: 'Special Edition', description: 'Exclusive Skullpanda variant.', icon: 'gem' },
-      { title: 'Sealed Case', description: 'Unopened full case.', icon: 'shield' },
-      { title: 'Collector Pick', description: 'Curated for collectors.', icon: 'star' },
-      { title: 'Blind Box Format', description: 'Chase figures inside.', icon: 'layers' },
-    ],
-  },
-  {
-    id: 'popmart-disney-collab',
-    slug: 'popmart-disney-limited-collaboration-blind-box-case',
-    brand: 'Pop Mart x Disney',
-    name: 'Limited Collaboration Blind Box Case',
-    category: 'Collectibles',
-    subcategory: 'Pop Mart',
-    description: 'A sealed case of the Pop Mart x Disney limited collaboration blind box series.',
-    price: 0,
-    badge: 'COLLABORATION',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Collectibles', 'popmart-disney-limited-collaboration-blind-box-case'),
-    gallery: [img('Collectibles', 'popmart-disney-limited-collaboration-blind-box-case'), placeholder('blind-box-case')],
-    tags: ['pop mart', 'disney', 'collaboration', 'blind box', 'sealed case'],
-    collection: 'Pop Mart x Disney',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Case Size', values: ['Full Case'] },
-    ],
-    highlights: [
-      { title: 'Collaboration', description: 'Pop Mart x Disney partnership.', icon: 'gem' },
-      { title: 'Sealed Case', description: 'Unopened full case.', icon: 'shield' },
-      { title: 'Blind Box Format', description: 'Chase variants inside.', icon: 'layers' },
-      { title: 'Limited Edition', description: 'Produced in restricted numbers.', icon: 'star' },
-    ],
-  },
-  {
-    id: 'jellycat-retired-exclusive',
-    slug: 'jellycat-retired-event-exclusive-character',
-    brand: 'Jellycat',
-    name: 'Retired / Event Exclusive Character',
-    category: 'Collectibles',
-    subcategory: 'Jellycat',
-    description: 'A retired or event-exclusive Jellycat plush character. Hard to find and highly sought.',
-    price: 0,
-    badge: 'HARD TO FIND',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: true,
-    trending: false,
-    image: img('Collectibles', 'jellycat-retired-event-exclusive-character'),
-    gallery: [img('Collectibles', 'jellycat-retired-event-exclusive-character'), placeholder('plush')],
-    tags: ['jellycat', 'retired', 'event exclusive', 'plush', 'hard to find'],
-    collection: 'Jellycat',
-    condition: 'New with Tags',
-    options: [
-      { label: 'Condition', values: ['New with Tags'] },
-      { label: 'Edition', values: ['Retired / Event'] },
-    ],
-    highlights: [
-      { title: 'Hard to Find', description: 'Retired or event exclusive.', icon: 'gem' },
-      { title: 'New with Tags', description: 'Pristine collector condition.', icon: 'shield' },
-      { title: 'Limited Availability', description: 'No longer in production.', icon: 'star' },
-      { title: 'Collector Piece', description: 'A rare Jellycat find.', icon: 'layers' },
-    ],
-  },
-
-  // ===== WATCHES =====
-  {
-    id: 'swatch-ap-collab',
-    slug: 'swatch-audemars-piguet-collaboration-watch',
-    brand: 'Swatch',
-    name: 'Swatch x Audemars Piguet Collaboration',
-    category: 'Watches',
-    subcategory: 'Swatch',
-    description: 'The Swatch x Audemars Piguet collaboration watch. A 2026 breakout release.',
-    price: 0,
-    badge: '2026 BREAKOUT',
-    status: 'Coming Soon',
-    featured: true,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Watches', 'swatch-audemars-piguet-collaboration-watch'),
-    gallery: [img('Watches', 'swatch-audemars-piguet-collaboration-watch'), placeholder('watch')],
-    tags: ['swatch', 'audemars piguet', 'ap', 'collaboration', '2026', 'breakout'],
-    collection: 'Swatch x AP',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Edition', values: ['Limited'] },
-    ],
-    highlights: [
-      { title: '2026 Breakout', description: 'The breakout watch release of the year.', icon: 'star' },
-      { title: 'Collaboration Piece', description: 'Swatch x Audemars Piguet partnership.', icon: 'gem' },
-      { title: 'New / Sealed', description: 'Unopened condition.', icon: 'shield' },
-      { title: 'High Scarcity', description: 'Extremely limited availability.', icon: 'layers' },
-    ],
-  },
-  {
-    id: 'timex-mm6-collab',
-    slug: 'timex-mm6-maison-margiela-limited-collaboration-watch',
-    brand: 'Timex x MM6 Maison Margiela',
-    name: 'Limited Collaboration Watch',
-    category: 'Watches',
-    subcategory: 'Timex',
-    description: 'The Timex x MM6 Maison Margiela limited collaboration watch.',
-    price: 0,
-    badge: 'COLLABORATION',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: false,
-    trending: true,
-    image: img('Watches', 'timex-mm6-maison-margiela-limited-collaboration-watch'),
-    gallery: [img('Watches', 'timex-mm6-maison-margiela-limited-collaboration-watch'), placeholder('watch')],
-    tags: ['timex', 'mm6', 'maison margiela', 'collaboration', 'watch', 'limited'],
-    collection: 'Timex x MM6',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Edition', values: ['Limited'] },
-    ],
-    highlights: [
-      { title: 'Collaboration Piece', description: 'Timex x MM6 Maison Margiela partnership.', icon: 'gem' },
-      { title: 'New / Sealed', description: 'Unopened condition.', icon: 'shield' },
-      { title: 'Limited Edition', description: 'Produced in restricted numbers.', icon: 'star' },
-      { title: 'Collector Appeal', description: 'A unique wearable collectible.', icon: 'layers' },
-    ],
-  },
-  {
-    id: 'timex-noah-collab',
-    slug: 'timex-noah-limited-collaboration-watch',
-    brand: 'Timex x Noah',
-    name: 'Limited Collaboration Watch',
-    category: 'Watches',
-    subcategory: 'Timex',
-    description: 'The Timex x Noah limited collaboration watch.',
-    price: 0,
-    badge: 'LIMITED',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: false,
-    highScarcity: false,
-    trending: false,
-    image: img('Watches', 'timex-noah-limited-collaboration-watch'),
-    gallery: [img('Watches', 'timex-noah-limited-collaboration-watch'), placeholder('watch')],
-    tags: ['timex', 'noah', 'collaboration', 'watch', 'limited'],
-    collection: 'Timex x Noah',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Edition', values: ['Limited'] },
-    ],
-    highlights: [
-      { title: 'Limited Edition', description: 'Restricted production run.', icon: 'gem' },
-      { title: 'New / Sealed', description: 'Unopened condition.', icon: 'shield' },
-      { title: 'Collaboration Design', description: 'Timex x Noah partnership.', icon: 'star' },
-      { title: 'Accessible Collectible', description: 'Entry-level luxury collectible.', icon: 'layers' },
-    ],
-  },
-  {
-    id: 'casio-gshock-collab',
-    slug: 'casio-limited-g-shock-collaboration',
-    brand: 'Casio',
-    name: 'Limited G-SHOCK Collaboration',
-    category: 'Watches',
-    subcategory: 'Casio',
-    description: 'A limited G-SHOCK collaboration from Casio. Built tough, made collectible.',
-    price: 0,
-    badge: 'LIMITED',
-    status: 'Coming Soon',
-    featured: false,
-    newArrival: true,
-    highScarcity: true,
-    trending: true,
-    image: img('Watches', 'casio-limited-g-shock-collaboration'),
-    gallery: [img('Watches', 'casio-limited-g-shock-collaboration'), placeholder('watch')],
-    tags: ['casio', 'g-shock', 'collaboration', 'limited', 'watch'],
-    collection: 'G-SHOCK',
-    condition: 'New / Sealed',
-    options: [
-      { label: 'Condition', values: ['New / Sealed'] },
-      { label: 'Edition', values: ['Limited'] },
-    ],
-    highlights: [
-      { title: 'Limited Collaboration', description: 'A special G-SHOCK partnership release.', icon: 'gem' },
-      { title: 'New / Sealed', description: 'Unopened condition.', icon: 'shield' },
-      { title: 'G-SHOCK Tough', description: 'Built for durability.', icon: 'layers' },
-      { title: 'High Scarcity', description: 'Extremely limited availability.', icon: 'star' },
-    ],
-  },
+  ...sneakers,
+  ...tradingCards,
+  ...apparel,
+  ...soccer,
+  ...collectibles,
+  ...watches,
 ];
 
-// ===== Helper functions =====
+const categoryOrder: ProductCategory[] = ['Sneakers', 'Trading Cards', 'Apparel', 'Soccer', 'Collectibles', 'Watches'];
+
+const featuredOrder = [
+  'travis-scott-air-jordan-1-low-og-shy-pink',
+  'jordan-4-nigel-sylvester-brick-after-brick',
+  'pokemon-prismatic-evolutions-elite-trainer-box',
+  'supreme-box-logo-hooded-sweatshirt',
+  'cactus-jack-fc-barcelona-limited-edition-jersey',
+  'popmart-the-monsters-big-into-energy-blind-box',
+  'omega-swatch-moonswatch-mission-to-the-moon',
+  'denim-tears-cotton-wreath-hoodie',
+];
+
+export const isPurchasable = (p: Product) => p.status === 'Available' && p.price !== null;
+
+export const discountPercent = (p: Product) =>
+  p.price !== null && p.compareAtPrice && p.compareAtPrice > p.price
+    ? Math.round(((p.compareAtPrice - p.price) / p.compareAtPrice) * 100)
+    : 0;
+
+export const placeholderVariant = (p: Product) =>
+  p.gallery.find((g) => !g.startsWith('/')) ?? 'trading-card-box';
 
 export const getProduct = (slug: string) => products.find((p) => p.slug === slug);
 
 export const getProductsByCategory = (category: string) =>
   products.filter((p) => p.category === category);
 
-export const getFeaturedProducts = () => products.filter((p) => p.featured);
+export const getFeaturedProducts = () =>
+  featuredOrder
+    .map((slug) => getProduct(slug))
+    .filter((p): p is Product => Boolean(p));
 
-export const getTrendingProducts = () => products.filter((p) => p.trending);
+export const getTrendingProducts = () => {
+  const buckets = categoryOrder.map((c) => products.filter((p) => p.trending && p.category === c));
+  const result: Product[] = [];
+  const longest = Math.max(...buckets.map((b) => b.length));
+  for (let i = 0; i < longest; i++) {
+    buckets.forEach((b) => b[i] && result.push(b[i]));
+  }
+  return result;
+};
 
 export const getNewArrivals = () => products.filter((p) => p.newArrival);
 
-export const getSaleProducts = () =>
-  products.filter((p) => p.compareAtPrice && p.compareAtPrice > p.price);
+export const getSaleProducts = () => products.filter((p) => discountPercent(p) > 0);
 
 export const getVaultProducts = () => products.filter((p) => p.highScarcity);
 
 export const getDropsProducts = () =>
-  products.filter((p) => p.featured && p.newArrival && p.highScarcity);
+  products.filter((p) => p.highScarcity && (p.featured || p.newArrival));
 
 export const getSimilarProducts = (slug: string) => {
   const product = getProduct(slug);
@@ -1049,11 +125,12 @@ export const searchProducts = (query: string) => {
       p.brand.toLowerCase().includes(q) ||
       p.category.toLowerCase().includes(q) ||
       (p.subcategory?.toLowerCase().includes(q) ?? false) ||
+      (p.collection?.toLowerCase().includes(q) ?? false) ||
       p.tags.some((t) => t.toLowerCase().includes(q))
   );
 };
 
-export const formatPrice = (price: number) => {
-  if (price === 0) return 'Price coming soon';
+export const formatPrice = (price: number | null) => {
+  if (price === null) return 'Price Coming Soon';
   return `$${price.toLocaleString('en-US', { minimumFractionDigits: 0 })}`;
 };

@@ -16,7 +16,7 @@ export default function DropsPage() {
       <main className="section-space">
         <CategoryPage
           title="Drops"
-          description="The strongest combination of featured, new arrival and high-scarcity pieces. These are the most anticipated releases on DealVault Luxe."
+          description="High-demand releases and hard-to-find pieces. The most anticipated listings on Vanta Row Luxe."
           heroLabel="Featured Drops"
           products={products}
           breadcrumb={['Home', 'Drops']}

@@ -1,27 +1,30 @@
+import { getProduct, type Product } from './products';
+
 export type CategoryInfo = {
   name: string;
   slug: string;
   href: string;
   description: string;
-  icon: string;
-  tone: string;
-  emoji: string;
-  categoryImage: string;
+  representativeSlug?: string;
+  variant: string;
 };
 
 export const categories: CategoryInfo[] = [
-  { name: 'Trading Cards', slug: 'trading-cards', href: '/shop/trading-cards', description: 'Sealed boxes, special editions and limited releases for collectors.', icon: 'cards', tone: 'trading', emoji: '🃏', categoryImage: '/catalog/trading-cards/pokemon-30th-celebration-elite-trainer-box.jpg' },
-  { name: 'Sneakers', slug: 'sneakers', href: '/shop/sneakers', description: 'Limited colourways, retros and high-demand releases.', icon: 'sneaker', tone: 'sneaker', emoji: '👟', categoryImage: '/catalog/sneakers/jordan-5-retro-wolf-grey-2026.jpg' },
-  { name: 'Apparel', slug: 'apparel', href: '/shop/apparel', description: 'Limited drops, collaborations and collector-grade streetwear.', icon: 'hoodie', tone: 'apparel', emoji: '👕', categoryImage: '/catalog/apparel/supreme-mm6-maison-margiela-box-logo-zip-up-hoodie-navy-ss26.jpg' },
-  { name: 'Soccer', slug: 'soccer', href: '/shop/soccer', description: 'Special edition jerseys and collector-focused football releases.', icon: 'jersey', tone: 'soccer', emoji: '⚽', categoryImage: '/catalog/soccer/nike-fc-barcelona-re-issue-2005-06-ronaldinho-10-home-jersey.jpg' },
-  { name: 'Collectibles', slug: 'collectibles', href: '/shop/collectibles', description: 'Blind boxes, designer figures and hard-to-find collector pieces.', icon: 'blindbox', tone: 'collectibles', emoji: '🎁', categoryImage: '/catalog/collectibles/popmart-hacipupu-gummy-bear-sealed-case.jpg' },
-  { name: 'Watches', slug: 'watches', href: '/shop/watches', description: 'Limited collaboration watches and accessible collector timepieces.', icon: 'watch', tone: 'watches', emoji: '⌚', categoryImage: '/catalog/watches/swatch-audemars-piguet-collaboration-watch.jpg' },
+  { name: 'Sneakers', slug: 'sneakers', href: '/shop/sneakers', description: 'Travis Scott, Jordan 4s, Kobe Protros and the collabs everyone is chasing.', representativeSlug: 'travis-scott-air-jordan-1-low-og-shy-pink', variant: 'sneaker' },
+  { name: 'Trading Cards', slug: 'trading-cards', href: '/shop/trading-cards', description: 'Sealed Pokémon, One Piece, Panini Prizm and Topps Chrome.', representativeSlug: 'pokemon-prismatic-evolutions-elite-trainer-box', variant: 'trading-card-box' },
+  { name: 'Apparel', slug: 'apparel', href: '/shop/apparel', description: 'Supreme, Denim Tears, Corteiz, Stüssy and the pieces that sell out first.', representativeSlug: 'supreme-box-logo-hooded-sweatshirt', variant: 'hoodie' },
+  { name: 'Soccer', slug: 'soccer', href: '/shop/soccer', description: 'Cactus Jack Barça, reissues, retro icons and special-edition kits.', representativeSlug: 'cactus-jack-fc-barcelona-limited-edition-jersey', variant: 'jersey' },
+  { name: 'Collectibles', slug: 'collectibles', href: '/shop/collectibles', description: 'LABUBU, SKULLPANDA, CRYBABY, BE@RBRICK and designer vinyl.', representativeSlug: 'popmart-the-monsters-big-into-energy-blind-box', variant: 'plush' },
+  { name: 'Watches', slug: 'watches', href: '/shop/watches', description: 'MoonSwatch, Swatch and Timex collabs, and G-SHOCK editions.', representativeSlug: 'omega-swatch-moonswatch-mission-to-the-moon', variant: 'watch' },
 ];
 
 export const secondaryCategories: CategoryInfo[] = [
-  { name: 'New Arrivals', slug: 'new-arrivals', href: '/new-arrivals', description: 'Fresh drops, new releases and recently added collector pieces.', icon: 'new', tone: 'new', emoji: '✨', categoryImage: '/catalog/sneakers/nike-kobe-limited-performance-retro.jpg' },
-  { name: 'Sale', slug: 'sale', href: '/sale', description: 'Limited pieces at better prices. While they last.', icon: 'sale', tone: 'sale', emoji: '🏷️', categoryImage: '/catalog/sneakers/jordan-4-retro-white-cement.jpg' },
+  { name: 'New Arrivals', slug: 'new-arrivals', href: '/new-arrivals', description: 'Fresh drops, new releases and recently added collector pieces.', representativeSlug: 'jordan-4-nigel-sylvester-brick-after-brick', variant: 'sneaker' },
+  { name: 'Sale', slug: 'sale', href: '/sale', description: 'Confirmed reductions on listed pieces, when we have them.', variant: 'sports-card-box' },
 ];
+
+export const getCategoryProduct = (cat: CategoryInfo): Product | undefined =>
+  cat.representativeSlug ? getProduct(cat.representativeSlug) : undefined;
 
 export const allNavLinks = [
   { label: 'Drops', href: '/drops' },
@@ -34,14 +37,3 @@ export const allNavLinks = [
   { label: 'New Arrivals', href: '/new-arrivals' },
   { label: 'Sale', href: '/sale', sale: true },
 ];
-
-export const toneMap: Record<string, string> = {
-  trading: 'from-violet-50 to-violet-100',
-  sneaker: 'from-blue-50 to-blue-100',
-  apparel: 'from-rose-50 to-rose-100',
-  soccer: 'from-emerald-50 to-emerald-100',
-  collectibles: 'from-amber-50 to-amber-100',
-  watches: 'from-slate-50 to-slate-200',
-  new: 'from-indigo-50 to-indigo-100',
-  sale: 'from-red-50 to-red-100',
-};

@@ -1,12 +1,12 @@
 'use client';
 
-import { Crown, ArrowRight, ShieldCheck, Store, Lock, RotateCcw } from 'lucide-react';
+import { Crown, ArrowRight, Tag, CircleDot, Bell, Search } from 'lucide-react';
 
 const trustItems = [
-  { icon: ShieldCheck, title: '100% Authentic', desc: 'Verified partner products' },
-  { icon: Store, title: 'Trusted Retailer Network', desc: 'Official / verified sellers' },
-  { icon: Lock, title: 'Secure Checkout', desc: 'Your information is protected' },
-  { icon: RotateCcw, title: 'Easy Returns', desc: 'Hassle-free within 30 days' },
+  { icon: Tag, title: 'Confirmed Pricing Only', desc: 'No placeholder or inflated prices' },
+  { icon: CircleDot, title: 'Clear Status', desc: 'Available, Coming Soon or Sourcing' },
+  { icon: Search, title: 'Active Sourcing', desc: 'We look for the pieces you ask for' },
+  { icon: Bell, title: 'Watchlist', desc: 'Tap Notify Me to keep track of a piece' },
 ];
 
 export default function TrustPanel() {
@@ -19,7 +19,7 @@ export default function TrustPanel() {
         </div>
         <h3 className="font-display text-lg font-bold text-white">Get Early Access to Exclusive Drops</h3>
         <p className="text-sm text-gray-300 mt-2 leading-relaxed">
-          Join DealVault Luxe for member pricing, special events, and more.
+          Join Vanta Row Luxe to hear about new arrivals and restocks first.
         </p>
         <button className="btn-luxe w-full mt-4 h-11 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2">
           <span className="btn-shine" />
